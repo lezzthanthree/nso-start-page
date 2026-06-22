@@ -1,5 +1,5 @@
 import Draggable from "react-draggable";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 interface WindowProps {
     title: string;
@@ -13,6 +13,17 @@ export const Window = (prop: WindowProps) => {
     const { title, children, stateHandler, x, y } = prop;
 
     const nodeRef = useRef(null);
+
+    useEffect(() => {
+        new Audio("snd/window_open.wav").play();
+    }, []);
+
+    const handleClose = () => {
+        if (!stateHandler) return;
+
+        new Audio("snd/window_close.wav").play();
+        stateHandler(false);
+    };
 
     return (
         <Draggable
@@ -37,7 +48,7 @@ export const Window = (prop: WindowProps) => {
                             <img
                                 src="img/button_close.png"
                                 className="w-5 h-5"
-                                onClick={() => stateHandler(false)}
+                                onClick={handleClose}
                             />
                         )}
                     </div>
