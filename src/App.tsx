@@ -1,4 +1,5 @@
 import Icon from "./components/Icon";
+import Taskbar from "./components/Taskbar";
 import { Window } from "./components/Window";
 import { useWindowState } from "./states/windowStates";
 
@@ -32,7 +33,10 @@ function App() {
                     <Icon
                         image="img/icons/twitter.png"
                         name="Twitter"
-                        action={() => {}}
+                        action={() => {
+                            window.open("https://twitter.com", "_self");
+                        }}
+                        execute
                     />
                 </div>
 
@@ -44,9 +48,7 @@ function App() {
                     </Window>
                 )}
             </div>
-            <div className="h-4 w-full bg-amber-600" id="taskbar">
-                <button onClick={() => setSpeedDialWindow(true)}>Test</button>
-            </div>
+            <Taskbar />
         </div>
     );
 }
