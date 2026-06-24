@@ -25,14 +25,19 @@ export const Window = (prop: WindowProps) => {
         stateHandler(false);
     };
 
+    const defaultPosition =
+        x !== undefined || y !== undefined
+            ? { x: x ?? 0, y: y ?? 0 }
+            : undefined;
+
     return (
         <Draggable
             nodeRef={nodeRef}
             handle="#title-bar"
-            defaultPosition={{ x: x ?? 100, y: y ?? 100 }}
+            defaultPosition={defaultPosition}
         >
             <div
-                className="absolute border-2 border-nso-purple bg-nso-cyan px-1 pt-1 box-border flex flex-col shadow-[4px_4px_#4d23cf55] min-w-64 min-h-64"
+                className="absolute border-2 border-nso-purple bg-nso-cyan px-1 pt-1 box-border flex flex-col shadow-[4px_4px_#4d23cf55] min-w-64 min-h-64 pointer-events-auto"
                 ref={nodeRef}
             >
                 <div
