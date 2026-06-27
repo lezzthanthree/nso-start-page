@@ -11,6 +11,7 @@ const SearchWindow: React.FC = () => {
     const inputBox = useRef<HTMLInputElement>(null);
     const isURL =
         /^www\./i.test(search) ||
+        /^http:\/\//i.test(search) ||
         /^https:\/\//i.test(search) ||
         /\.[a-zA-Z]{2,5}\b/.test(search);
 
@@ -96,8 +97,8 @@ const SearchWindow: React.FC = () => {
                 </div>
                 <div className="flex flex-col justify-center items-center font-nso-dinkie-9px text-nso-purple ">
                     {isURL && <p>Detected a URL!</p>}
-                    <p>Press ENTER to {isURL ? "continue" : "search"}</p>
-                    <p>Press ESC to cancel</p>
+                    <p>Press [ENTER] to {isURL ? "continue" : "search"}</p>
+                    <p>Press [ESC] to {search.length == 0 ? "close window" : "clear search bar"}</p>
                 </div>
                 <div className="h-20" />
             </div>
