@@ -28,6 +28,6 @@ export const useWindowState = create<IWindowState>((set) => ({
     },
     speedDialWindow: true,
     setSpeedDialWindow: (state) => set({ speedDialWindow: state }),
-    searchWindow: true,
+    searchWindow: false,
     setSearchWindow: (state) => set({ searchWindow: state }),
 }));

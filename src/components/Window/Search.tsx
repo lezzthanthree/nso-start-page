@@ -6,9 +6,30 @@ import Button from "../Button";
 import { useSearchState } from "../../hooks/useSearchState";
 
 const SearchWindow: React.FC = () => {
-    const { searchWindow, setSearchWindow } = useWindowState();
+    const { setSearchWindow } = useWindowState();
     const { search, setSearch, clear } = useSearchState();
     const inputBox = useRef<HTMLInputElement>(null);
+    const isURL =
+        /^www\./i.test(search) ||
+        /^https:\/\//i.test(search) ||
+        /\.[a-zA-Z]{2,5}\b/.test(search);
+
+    const handleExecution = () => {
+        new Audio("snd/execute.wav").play();
+        if (isURL) {
+            let url = search;
+            if (!url.startsWith("http")) {
+                url = "https://" + url;
+            }
+            window.open(url, "_self");
+            return;
+        }
+        if (search.length == 0) {
+            window.open("https://www.google.com/search?q=Ame-chan", "_self");
+            return;
+        }
+        window.open("https://www.google.com/search?q=" + search, "_self");
+    };
 
     useEffect(() => {
         const event = (events: KeyboardEvent) => {
@@ -24,7 +45,12 @@ const SearchWindow: React.FC = () => {
                     setSearchWindow(false);
                     break;
                 case "Enter":
-                    new Audio("snd/execute.wav").play();
+                    handleExecution();
+                    break;
+                case "Backspace":
+                    if (inputBox.current) {
+                        inputBox.current.focus();
+                    }
                     break;
                 default:
                     if (!key.match(/^[\w\s\p{P}]$/u)) break;
@@ -42,38 +68,40 @@ const SearchWindow: React.FC = () => {
         };
     }, [search]);
 
+    useEffect(() => {
+        if (inputBox.current) {
+            inputBox.current.focus();
+        }
+    }, []);
+
     return (
-        <>
-            {searchWindow && (
-                <Window
-                    title="Search"
-                    id="search"
-                    stateHandler={setSearchWindow}
-                >
-                    <div className="w-5xl flex flex-col justify-center gap-4">
-                        <img
-                            src="img/kangle.png"
-                            alt=""
-                            className="self-center w-75 mt-16"
-                        />
-                        <div className="flex flex-row gap-2 px-16 items-center">
-                            <InputBox
-                                placeholder="Search Kangle..."
-                                onChange={setSearch}
-                                value={search}
-                                ref={inputBox}
-                            />
-                            <Button label="Search" />
-                        </div>
-                        <div className="flex flex-col justify-center items-center font-nso-dinkie-9px text-nso-purple ">
-                            <p>Press ENTER to confirm</p>
-                            <p>Press ESC to cancel</p>
-                        </div>
-                        <div className="h-20" />
-                    </div>
-                </Window>
-            )}
-        </>
+        <Window title="Search" id="search" stateHandler={setSearchWindow}>
+            <div className="w-5xl flex flex-col justify-center gap-4">
+                <img
+                    src="img/kangle.png"
+                    alt=""
+                    className="self-center w-75 mt-16"
+                />
+                <div className="flex flex-row gap-2 px-16 items-center">
+                    <InputBox
+                        placeholder="Search Kangle..."
+                        onChange={setSearch}
+                        value={search}
+                        ref={inputBox}
+                    />
+                    <Button
+                        label={isURL ? "I'm Feeling DENPA!" : "Search"}
+                        onClick={handleExecution}
+                    />
+                </div>
+                <div className="flex flex-col justify-center items-center font-nso-dinkie-9px text-nso-purple ">
+                    {isURL && <p>Detected a URL!</p>}
+                    <p>Press ENTER to {isURL ? "continue" : "search"}</p>
+                    <p>Press ESC to cancel</p>
+                </div>
+                <div className="h-20" />
+            </div>
+        </Window>
     );
 };
 

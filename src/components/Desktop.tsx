@@ -5,7 +5,7 @@ import SpeedDialWindow from "./Window/SpeedDial";
 import SearchWindow from "./Window/Search";
 
 const Desktop: React.FC = () => {
-    const { openWindow } = useWindowState();
+    const { speedDialWindow, searchWindow, openWindow } = useWindowState();
 
     useEffect(() => {
         document.addEventListener(
@@ -34,7 +34,9 @@ const Desktop: React.FC = () => {
                     <IconImage
                         image="img/icons/search.png"
                         name="Search"
-                        action={() => {openWindow("search")}}
+                        action={() => {
+                            openWindow("search");
+                        }}
                     />
                 </div>
             </div>
@@ -48,8 +50,8 @@ const Desktop: React.FC = () => {
                 id="center-window-area"
                 className="inset-0 flex absolute justify-center items-center pointer-events-none"
             >
-                <SpeedDialWindow />
-                <SearchWindow />
+                {speedDialWindow && <SpeedDialWindow />}
+                {searchWindow && <SearchWindow />}
             </div>
         </div>
     );
