@@ -34,35 +34,60 @@ const SpeedDialWindow: React.FC = () => {
                                     icon="hn-facebook-square"
                                     color="text-[#0159ff]"
                                     name="Facebook"
-                                    action={() => {}}
+                                    action={() => {
+                                        window.open(
+                                            "https://facebook.com",
+                                            "_self",
+                                        );
+                                    }}
                                 />
                                 <Icon8Bit
                                     execute
                                     icon="hn-twitter"
                                     color="text-[#1c96e8]"
                                     name="Twitter"
-                                    action={() => {}}
+                                    action={() => {
+                                        window.open(
+                                            "https://twitter.com",
+                                            "_self",
+                                        );
+                                    }}
                                 />
                                 <Icon8Bit
                                     execute
                                     icon="hn-reddit"
                                     color="text-[#f74300]"
                                     name="Reddit"
-                                    action={() => {}}
+                                    action={() => {
+                                        window.open(
+                                            "https://reddit.com",
+                                            "_self",
+                                        );
+                                    }}
                                 />
                                 <Icon8Bit
                                     execute
                                     icon="hn-youtube"
                                     color="text-[#f60002]"
                                     name="YouTube"
-                                    action={() => {}}
+                                    action={() => {
+                                        window.open(
+                                            "https://youtube.com",
+                                            "_self",
+                                        );
+                                    }}
                                 />
                                 <Icon8Bit
                                     execute
                                     icon="hn-github"
                                     color="text-[#000000]"
                                     name="GitHub"
-                                    action={() => {}}
+                                    action={() => {
+                                        window.open(
+                                            "https://github.com",
+                                            "_self",
+                                        );
+                                    }}
                                 />
                             </div>
                         </div>
