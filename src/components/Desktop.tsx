@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Icon from ".//Icon";
 import { useWindowState } from "../states/useWindowStates";
 import SpeedDialWindow from "./Window/SpeedDial";
 
 const Desktop: React.FC = () => {
     const { openWindow } = useWindowState();
+
+    useEffect(() => {
+        document.addEventListener(
+            "mousedown",
+            () => {
+                new Audio("snd/click.wav").play();
+            },
+            true,
+        );
+    }, []);
 
     return (
         <div className="flex flex-1 w-full p-8 relative" id="desktop">
