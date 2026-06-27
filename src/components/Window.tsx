@@ -1,6 +1,6 @@
 import Draggable from "react-draggable";
 import React, { useEffect, useRef, useState } from "react";
-import { useWindowState } from "../states/useWindowStates";
+import { useWindowState } from "../hooks/useWindowStates";
 
 interface WindowProps {
     title: string;

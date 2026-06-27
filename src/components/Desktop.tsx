@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Icon from ".//Icon";
-import { useWindowState } from "../states/useWindowStates";
+import { useWindowState } from "../hooks/useWindowStates";
 import SpeedDialWindow from "./Window/SpeedDial";
 
 const Desktop: React.FC = () => {
