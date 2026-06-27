@@ -5,7 +5,6 @@ import { useWindowState } from "../hooks/useWindowStates";
 interface WindowProps {
     title: string;
     children?: React.ReactNode;
-    stateHandler?: (state: boolean) => void;
     id: string;
     x?: number;
     y?: number;
@@ -14,15 +13,19 @@ interface WindowProps {
 export const Window: React.FC<WindowProps> = ({
     title,
     children,
-    stateHandler,
     id,
     x,
     y,
 }) => {
     const nodeRef = useRef(null);
 
-    const { focusedWindow, setFocusedWindow, zCount, incrementZCount } =
-        useWindowState();
+    const {
+        focusedWindow,
+        setFocusedWindow,
+        zCount,
+        incrementZCount,
+        closeWindow,
+    } = useWindowState();
 
     const active = focusedWindow == id;
 
@@ -33,10 +36,8 @@ export const Window: React.FC<WindowProps> = ({
     }, []);
 
     const handleClose = () => {
-        if (!stateHandler) return;
-
         new Audio("snd/window_close.wav").play();
-        stateHandler(false);
+        closeWindow(id);
     };
 
     const handleFocus = () => {
@@ -81,13 +82,11 @@ export const Window: React.FC<WindowProps> = ({
                         {title}
                     </span>
                     <div className="flex gap-1 h-5 shrink-0">
-                        {stateHandler && (
-                            <img
-                                src="img/button_close.png"
-                                className="w-5 h-5 icons"
-                                onClick={handleClose}
-                            />
-                        )}
+                        <img
+                            src="img/button_close.png"
+                            className="w-5 h-5 icons"
+                            onClick={handleClose}
+                        />
                     </div>
                 </div>
                 <div

@@ -6,7 +6,7 @@ import Button from "../Button";
 import { useSearchState } from "../../hooks/useSearchState";
 
 const SearchWindow: React.FC = () => {
-    const { setSearchWindow } = useWindowState();
+    const { closeWindow } = useWindowState();
     const { search, setSearch, clear } = useSearchState();
     const inputBox = useRef<HTMLInputElement>(null);
     const isURL =
@@ -43,7 +43,7 @@ const SearchWindow: React.FC = () => {
                     }
                     new Audio("snd/window_close.wav").play();
                     clear();
-                    setSearchWindow(false);
+                    closeWindow("search");
                     break;
                 case "Enter":
                     handleExecution();
@@ -76,7 +76,7 @@ const SearchWindow: React.FC = () => {
     }, []);
 
     return (
-        <Window title="Search" id="search" stateHandler={setSearchWindow}>
+        <Window title="Search" id="search">
             <div className="w-5xl flex flex-col justify-center gap-4">
                 <img
                     src="img/kangle.png"
@@ -98,7 +98,12 @@ const SearchWindow: React.FC = () => {
                 <div className="flex flex-col justify-center items-center font-nso-dinkie-9px text-nso-purple ">
                     {isURL && <p>Detected a URL!</p>}
                     <p>Press [ENTER] to {isURL ? "continue" : "search"}</p>
-                    <p>Press [ESC] to {search.length == 0 ? "close window" : "clear search bar"}</p>
+                    <p>
+                        Press [ESC] to{" "}
+                        {search.length == 0
+                            ? "close window"
+                            : "clear search bar"}
+                    </p>
                 </div>
                 <div className="h-20" />
             </div>

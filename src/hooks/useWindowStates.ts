@@ -5,29 +5,35 @@ interface IWindowState {
     setFocusedWindow: (window: string | null) => void;
     zCount: number;
     incrementZCount: () => void;
+    activeWindows: string[];
     openWindow: (id: string) => void;
-
-    speedDialWindow: boolean;
-    setSpeedDialWindow: (state: boolean) => void;
-    searchWindow: boolean;
-    setSearchWindow: (state: boolean) => void;
+    closeWindow: (id: string) => void;
+    containWindow: (id: string) => boolean;
 }
 
-export const useWindowState = create<IWindowState>((set) => ({
+export const useWindowState = create<IWindowState>((set, get) => ({
     focusedWindow: "speedDial",
     setFocusedWindow: (window) => set({ focusedWindow: window }),
     zCount: 0,
     incrementZCount: () => set((s) => ({ zCount: s.zCount + 1 })),
+    activeWindows: ["speedDial"],
     openWindow: (id: string) => {
-        set((state) => ({
-            ...state,
+        set((s) => ({
             [`${id}Window`]: true,
             focusedWindow: id,
-            zCount: state.zCount + 1,
+            zCount: s.zCount + 1,
+            activeWindows: s.activeWindows.includes(id)
+                ? s.activeWindows
+                : [...s.activeWindows, id],
         }));
     },
-    speedDialWindow: true,
-    setSpeedDialWindow: (state) => set({ speedDialWindow: state }),
-    searchWindow: false,
-    setSearchWindow: (state) => set({ searchWindow: state }),
+    closeWindow: (id) =>
+        set((s) => {
+            return {
+                activeWindows: s.activeWindows.filter(
+                    (window) => window !== id,
+                ),
+            };
+        }),
+    containWindow: (id) => get().activeWindows.includes(id),
 }));

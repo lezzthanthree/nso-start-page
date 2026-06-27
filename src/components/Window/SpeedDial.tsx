@@ -5,35 +5,25 @@ import { useClock } from "../../hooks/useClock";
 import Icon8Bit from "../Icon8Bit";
 
 const SpeedDialWindow: React.FC = () => {
-    const {
-        setSpeedDialWindow,
-        searchWindow,
-        setSearchWindow,
-        setFocusedWindow,
-    } = useWindowState();
+    const { containWindow, openWindow, activeWindows } = useWindowState();
     const { complete } = useClock();
 
     useEffect(() => {
         const event = (events: KeyboardEvent) => {
             const key = events.key;
             if (!key.match(/^[\w\s\p{P}]$/u)) return;
-            if (searchWindow) return;
-            setSearchWindow(true);
-            setFocusedWindow("search");
+            if (containWindow("search")) return;
+            openWindow("search");
         };
         document.addEventListener("keydown", event);
 
         return () => {
             document.removeEventListener("keydown", event);
         };
-    }, [searchWindow]);
+    }, [activeWindows]);
 
     return (
-        <Window
-            title="Speed Dial"
-            id="speedDial"
-            stateHandler={setSpeedDialWindow}
-        >
+        <Window title="Speed Dial" id="speedDial">
             <div className="flex w-200 p-4 text-nso-purple flex-col gap-4">
                 <div id="intro">
                     <p className="font-nso-pressstart-2p text-4xl">

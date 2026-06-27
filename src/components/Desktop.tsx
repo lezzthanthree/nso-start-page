@@ -5,7 +5,7 @@ import SpeedDialWindow from "./Window/SpeedDial";
 import SearchWindow from "./Window/Search";
 
 const Desktop: React.FC = () => {
-    const { speedDialWindow, searchWindow, openWindow } = useWindowState();
+    const { activeWindows, openWindow } = useWindowState();
 
     useEffect(() => {
         document.addEventListener(
@@ -50,8 +50,8 @@ const Desktop: React.FC = () => {
                 id="center-window-area"
                 className="inset-0 flex absolute justify-center items-center pointer-events-none"
             >
-                {speedDialWindow && <SpeedDialWindow />}
-                {searchWindow && <SearchWindow />}
+                {activeWindows.includes("speedDial") && <SpeedDialWindow />}
+                {activeWindows.includes("search") && <SearchWindow />}
             </div>
         </div>
     );
