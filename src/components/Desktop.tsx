@@ -1,11 +1,10 @@
 import React from "react";
 import Icon from ".//Icon";
-import { Window } from ".//Window";
 import { useWindowState } from "../states/useWindowStates";
+import SpeedDialWindow from "./Window/SpeedDial";
 
 const Desktop: React.FC = () => {
-    const { speedDialWindow, setSpeedDialWindow, openWindow } =
-        useWindowState();
+    const { openWindow } = useWindowState();
 
     return (
         <div className="flex flex-1 w-full p-8 relative" id="desktop">
@@ -26,40 +25,19 @@ const Desktop: React.FC = () => {
                         name="Search"
                         action={() => {}}
                     />
-                    <Icon
-                        image="img/icons/youtube.png"
-                        name="YouTube"
-                        action={() => {
-                            window.open("https://youtube.com", "_self");
-                        }}
-                        execute
-                    />
-                    <Icon
-                        image="img/icons/twitter.png"
-                        name="Twitter"
-                        action={() => {
-                            window.open("https://twitter.com", "_self");
-                        }}
-                        execute
-                    />
                 </div>
             </div>
 
             <div
-                id="window-area"
+                id="free-window-area"
+                className="inset-0 flex absolute pointer-events-none"
+            ></div>
+
+            <div
+                id="center-window-area"
                 className="inset-0 flex absolute justify-center items-center pointer-events-none"
             >
-                {speedDialWindow && (
-                    <Window
-                        title="Speed Dial"
-                        id="speedDial"
-                        stateHandler={setSpeedDialWindow}
-                    >
-                        <div className="flex flex-row items-center justify-center flex-1 w-180 h-128">
-                            Speed Dial
-                        </div>
-                    </Window>
-                )}
+                <SpeedDialWindow />
             </div>
         </div>
     );

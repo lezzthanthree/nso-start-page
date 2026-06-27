@@ -5,16 +5,10 @@ interface IWindowState {
     setFocusedWindow: (window: string | null) => void;
     zCount: number;
     incrementZCount: () => void;
+    openWindow: (id: string) => void;
 
     speedDialWindow: boolean;
-    folder1Window: boolean;
-    folder2Window: boolean;
-    folder3Window: boolean;
     setSpeedDialWindow: (state: boolean) => void;
-    setFolder1Window: (state: boolean) => void;
-    setFolder2Window: (state: boolean) => void;
-    setFolder3Window: (state: boolean) => void;
-    openWindow: (id: string) => void;
 }
 
 export const useWindowState = create<IWindowState>((set) => ({
@@ -30,12 +24,6 @@ export const useWindowState = create<IWindowState>((set) => ({
             zCount: state.zCount + 1,
         }));
     },
-    speedDialWindow: false,
-    folder1Window: false,
-    folder2Window: false,
-    folder3Window: false,
+    speedDialWindow: true,
     setSpeedDialWindow: (state) => set({ speedDialWindow: state }),
-    setFolder1Window: (state) => set({ folder1Window: state }),
-    setFolder2Window: (state) => set({ folder2Window: state }),
-    setFolder3Window: (state) => set({ folder3Window: state }),
 }));
