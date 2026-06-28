@@ -3,6 +3,7 @@ import IconImage from "./IconImage";
 import { useWindowState } from "../hooks/useWindowStates";
 import SpeedDialWindow from "./Window/SpeedDial";
 import SearchWindow from "./Window/Search";
+import NotepadWindow from "./Window/Notepad";
 
 const Desktop: React.FC = () => {
     const { activeWindows, openWindow } = useWindowState();
@@ -38,13 +39,22 @@ const Desktop: React.FC = () => {
                             openWindow("search");
                         }}
                     />
+                    <IconImage
+                        image="img/icons/text.png"
+                        name="Notepad"
+                        action={() => {
+                            openWindow("notepad");
+                        }}
+                    />
                 </div>
             </div>
 
             <div
                 id="free-window-area"
                 className="inset-0 flex absolute pointer-events-none"
-            ></div>
+            >
+                {activeWindows.includes("notepad") && <NotepadWindow />}
+            </div>
 
             <div
                 id="center-window-area"

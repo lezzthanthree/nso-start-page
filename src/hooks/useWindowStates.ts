@@ -8,10 +8,9 @@ interface IWindowState {
     activeWindows: string[];
     openWindow: (id: string) => void;
     closeWindow: (id: string) => void;
-    containWindow: (id: string) => boolean;
 }
 
-export const useWindowState = create<IWindowState>((set, get) => ({
+export const useWindowState = create<IWindowState>((set) => ({
     focusedWindow: "speedDial",
     setFocusedWindow: (window) => set({ focusedWindow: window }),
     zCount: 0,
@@ -29,11 +28,18 @@ export const useWindowState = create<IWindowState>((set, get) => ({
     },
     closeWindow: (id) =>
         set((s) => {
+            const newActiveWindows = s.activeWindows.filter(
+                (window) => window !== id,
+            );
+
+            const focusDifferentWindow =
+                s.focusedWindow === id
+                    ? newActiveWindows[newActiveWindows.length - 1] || null
+                    : s.focusedWindow;
+
             return {
-                activeWindows: s.activeWindows.filter(
-                    (window) => window !== id,
-                ),
+                activeWindows: newActiveWindows,
+                focusedWindow: focusDifferentWindow,
             };
         }),
-    containWindow: (id) => get().activeWindows.includes(id),
 }));
