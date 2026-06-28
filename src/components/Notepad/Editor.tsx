@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNotesState } from "../../hooks/useNotes";
 import Button from "../Button";
 import NoteNotFound from "./NoteNotFound";
 
 const Editor: React.FC = () => {
+    const [confirmation, setConfirmation] = useState<boolean>(false);
     const {
         openedNote,
         closeNote,
@@ -42,13 +43,35 @@ const Editor: React.FC = () => {
                     icon="hn-arrow-left"
                     onClick={closeNote}
                 />
-                <Button
-                    label=""
-                    icon="hn-trash-alt-solid"
-                    onClick={() => {
-                        removeNote(openedNote.id);
-                    }}
-                />
+                {!confirmation ? (
+                    <div className="flex items-center">
+                        <Button
+                            label=""
+                            icon="hn-trash-alt-solid"
+                            onClick={() => {
+                                setConfirmation(true);
+                            }}
+                        />
+                    </div>
+                ) : (
+                    <div className="flex flex-row items-center gap-2">
+                        <p>Are you sure? </p>
+                        <Button
+                            label=""
+                            icon="hn-check"
+                            onClick={() => {
+                                removeNote(openedNote.id);
+                            }}
+                        />
+                        <Button
+                            label=""
+                            icon="hn-times"
+                            onClick={() => {
+                                setConfirmation(false);
+                            }}
+                        />
+                    </div>
+                )}
             </div>
         </div>
     );
