@@ -12,7 +12,11 @@ const SpeedDialWindow: React.FC = () => {
         const event = (events: KeyboardEvent) => {
             const key = events.key;
             if (!key.match(/^[\w\s\p{P}]$/u)) return;
-            if (activeWindows.includes("search")) return;
+            if (
+                activeWindows.includes("search") ||
+                activeWindows.includes("notepad")
+            )
+                return;
             openWindow("search");
         };
         document.addEventListener("keydown", event);
@@ -86,10 +90,16 @@ const SpeedDialWindow: React.FC = () => {
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <p className="font-nso-dinkie-9px">
-                        ... or you can start typing. A search bar will
-                        automatically pop up for you!
-                    </p>
+                    {!activeWindows.includes("notepad") ? (
+                        <p className="font-nso-dinkie-9px">
+                            ... or you can start typing. A search bar will
+                            automatically pop up for you!
+                        </p>
+                    ) : (
+                        <p className="font-nso-dinkie-9px">
+                            (Notepad is open! Automatic search is disabled.)
+                        </p>
+                    )}
                 </div>
             </div>
         </Window>
