@@ -7,8 +7,9 @@ This project is in heavy development.
 
 # Planned Features
 - [ ] Ame-chan (of course)
+- [ ] NSO Social Media 
 - [ ] Calendar and Agenda
-- [ ] Notepad
+- [X] Notepad
 - [ ] Customizable Speed Dial (title, icons, and links)
 - [ ] Allow selection of search engine (Google, DuckDuckGo, Bing, etc.)
 - [ ] Change background image 
