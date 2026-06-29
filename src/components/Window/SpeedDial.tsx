@@ -3,9 +3,11 @@ import { Window } from "../Window";
 import { useWindowState } from "../../hooks/useWindowStates";
 import { useClock } from "../../hooks/useClock";
 import Icon8Bit from "../Icon8Bit";
+import { useSpeedDialState } from "../../hooks/useSpeedDial";
 
 const SpeedDialWindow: React.FC = () => {
     const { activeWindows, openWindow } = useWindowState();
+    const { speedDial } = useSpeedDialState();
     const { complete } = useClock();
 
     useEffect(() => {
@@ -41,52 +43,21 @@ const SpeedDialWindow: React.FC = () => {
                     <p className="font-nso-dinkie-9px text-xl">
                         What do you want to do today?
                     </p>
-                    <div className="flex flex-row justify-around flex-wrap">
-                        <Icon8Bit
-                            execute
-                            icon="hn-facebook-square"
-                            color="text-[#0159ff]"
-                            name="Facebook"
-                            action={() => {
-                                window.open("https://facebook.com", "_self");
-                            }}
-                        />
-                        <Icon8Bit
-                            execute
-                            icon="hn-twitter"
-                            color="text-[#1c96e8]"
-                            name="Twitter"
-                            action={() => {
-                                window.open("https://twitter.com", "_self");
-                            }}
-                        />
-                        <Icon8Bit
-                            execute
-                            icon="hn-reddit"
-                            color="text-[#f74300]"
-                            name="Reddit"
-                            action={() => {
-                                window.open("https://reddit.com", "_self");
-                            }}
-                        />
-                        <Icon8Bit
-                            execute
-                            icon="hn-youtube"
-                            color="text-[#f60002]"
-                            name="YouTube"
-                            action={() => {
-                                window.open("https://youtube.com", "_self");
-                            }}
-                        />
-                        <Icon8Bit
-                            execute
-                            icon="hn-github"
-                            color="text-[#000000]"
-                            name="GitHub"
-                            action={() => {
-                                window.open("https://github.com", "_self");
-                            }}
-                        />
+                    <div className="flex flex-row justify-evenly flex-wrap gap-x-16">
+                        {speedDial.map((item) => {
+                            const color = `text-[${item.color}]`;
+                            return (
+                                <Icon8Bit
+                                    execute
+                                    icon={item.icon}
+                                    color={color}
+                                    name={item.name}
+                                    action={() => {
+                                        window.open(item.url, "_self");
+                                    }}
+                                />
+                            );
+                        })}
                     </div>
                 </div>
                 <div className="flex justify-center">

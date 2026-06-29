@@ -24,7 +24,7 @@ const Icon8Bit: React.FC<Icon8BitProps> = ({
 
     return (
         <div
-            className="flex flex-col items-center gap-2 font-nso-dinkie-7px text-nso-purple"
+            className="flex flex-col items-center gap-2 font-nso-dinkie-7px text-nso-purple text-base/4 w-20 text-center"
             onClick={handleAction}
         >
             <i className={`hn ${icon} ${color} h-16 w-16 text-[64px]`} />

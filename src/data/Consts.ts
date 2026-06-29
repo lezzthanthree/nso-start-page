@@ -4,4 +4,5 @@ export const windowNames = {
     notepad: "Notepad",
 };
 
-export const noteKey = "notes__test_1";
+export const noteKey = "notes";
+export const speedDialKey = "speedDial";
