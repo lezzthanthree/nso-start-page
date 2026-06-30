@@ -44,20 +44,17 @@ const SpeedDialWindow: React.FC = () => {
                         What do you want to do today?
                     </p>
                     <div className="flex flex-row justify-evenly flex-wrap gap-x-16">
-                        {speedDial.map((item) => {
-                            const color = `text-[${item.color}]`;
-                            return (
-                                <Icon8Bit
-                                    execute
-                                    icon={item.icon}
-                                    color={color}
-                                    name={item.name}
-                                    action={() => {
-                                        window.open(item.url, "_self");
-                                    }}
-                                />
-                            );
-                        })}
+                        {speedDial.map((item) => (
+                            <Icon8Bit
+                                execute
+                                icon={item.icon}
+                                color={item.color}
+                                name={item.name}
+                                action={() => {
+                                    window.open(item.url, "_self");
+                                }}
+                            />
+                        ))}
                     </div>
                 </div>
                 <div className="flex justify-center">
