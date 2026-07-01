@@ -15,8 +15,8 @@ export const useWindowState = create<IWindowState>((set) => ({
     setFocusedWindow: (window) => set({ focusedWindow: window }),
     zCount: 0,
     incrementZCount: () => set((s) => ({ zCount: s.zCount + 1 })),
-    // activeWindows: ["speedDial"],
-    activeWindows: [],
+    activeWindows: ["speedDial"],
+    // activeWindows: [],
     openWindow: (id: string) => {
         set((s) => ({
             [`${id}Window`]: true,
