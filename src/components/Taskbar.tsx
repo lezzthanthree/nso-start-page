@@ -18,7 +18,7 @@ const Taskbar: React.FC = () => {
             <Separator />
             <div
                 id="tasks"
-                className="flex-1 flex flex-row h-full overflow-scroll gap-1"
+                className="flex-1 flex flex-row h-full overflow-hidden gap-1"
             >
                 {activeWindows.map((task) => (
                     <Task
