@@ -69,7 +69,7 @@ const SpeedDialWindow: React.FC = () => {
                         </p>
                     ) : activeWindows.includes("settings") ? (
                         <p className="font-nso-dinkie-9px">
-                            (Notepad is open! Automatic search is disabled.)
+                            (Settings is open! Automatic search is disabled.)
                         </p>
                     ) : (
                         <p className="font-nso-dinkie-9px">
