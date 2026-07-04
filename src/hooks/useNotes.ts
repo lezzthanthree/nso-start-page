@@ -24,7 +24,7 @@ interface INotesState {
     setNoteListView: (view: "simple" | "detailed") => void;
 }
 
-export const useNotesState = create<INotesState>((set) => ({
+export const useNotesState = create<INotesState>((set, get) => ({
     notes: [],
     openedNote: null,
     initializeNotepad: async () => {
@@ -41,91 +41,90 @@ export const useNotesState = create<INotesState>((set) => ({
             console.error("Failed to load notes:", error);
         }
     },
-    createNote: () =>
-        set((s) => {
-            const date = new Date();
+    createNote: () => {
+        const date = new Date();
+        const notes = get().notes;
 
-            const newNote: INote = {
-                id: date.valueOf(),
-                title: "Untitled",
-                content: "",
-                createdAt: date,
-                modifiedAt: date,
-            };
+        const newNote: INote = {
+            id: date.valueOf(),
+            title: "Untitled",
+            content: "",
+            createdAt: date,
+            modifiedAt: date,
+        };
 
-            const newNotes = [...s.notes, newNote];
+        const newNotes = [...notes, newNote];
 
-            localforage.setItem(noteKey, newNotes);
+        localforage.setItem(noteKey, newNotes);
 
-            return {
-                openedNote: newNote,
-                notes: newNotes,
-            };
-        }),
-    removeNote: (id) =>
-        set((s) => {
-            const newNotes = s.notes.filter((note) => id != note.id);
+        set({
+            openedNote: newNote,
+            notes: newNotes,
+        });
+    },
+    removeNote: (id) => {
+        const notes = get().notes;
+        const newNotes = notes.filter((note) => id != note.id);
 
-            localforage.setItem(noteKey, newNotes);
+        localforage.setItem(noteKey, newNotes);
 
-            return {
-                openedNote: null,
-                notes: newNotes,
-            };
-        }),
-    openNote: (id) =>
-        set((s) => {
-            const note = s.notes.find((note) => id == note.id);
+        set({
+            openedNote: null,
+            notes: newNotes,
+        });
+    },
+    openNote: (id) => {
+        const notes = get().notes;
+        const note = notes.find((note) => id == note.id);
 
-            return {
-                openedNote: note || null,
-            };
-        }),
+        set({
+            openedNote: note || null,
+        });
+    },
     closeNote: () => set({ openedNote: null }),
-    editContentNote: (content) =>
-        set((s) => {
-            if (!s.openedNote) return {};
-            const updatedNote = {
-                ...s.openedNote,
-                content,
-                modifiedAt: new Date(),
-            };
+    editContentNote: (content) => {
+        const s = get();
+        if (!s.openedNote) return;
+        const updatedNote = {
+            ...s.openedNote,
+            content,
+            modifiedAt: new Date(),
+        };
 
-            const updatedNotes = s.notes.map((n) =>
-                n.id === updatedNote.id ? updatedNote : n,
-            );
+        const updatedNotes = s.notes.map((n) =>
+            n.id === updatedNote.id ? updatedNote : n,
+        );
 
-            localforage.setItem(noteKey, updatedNotes);
+        localforage.setItem(noteKey, updatedNotes);
 
-            return {
-                openedNote: updatedNote,
-                notes: updatedNotes,
-            };
-        }),
-    editTitleNote: (title) =>
-        set((s) => {
-            if (!s.openedNote) return {};
-            const updatedNote = {
-                ...s.openedNote,
-                title,
-                modifiedAt: new Date(),
-            };
+        set({
+            openedNote: updatedNote,
+            notes: updatedNotes,
+        });
+    },
+    editTitleNote: (title) => {
+        const s = get();
+        if (!s.openedNote) return;
+        const updatedNote = {
+            ...s.openedNote,
+            title,
+            modifiedAt: new Date(),
+        };
 
-            const updatedNotes = s.notes.map((n) =>
-                n.id === updatedNote.id ? updatedNote : n,
-            );
+        const updatedNotes = s.notes.map((n) =>
+            n.id === updatedNote.id ? updatedNote : n,
+        );
 
-            localforage.setItem(noteKey, updatedNotes);
+        localforage.setItem(noteKey, updatedNotes);
 
-            return {
-                openedNote: updatedNote,
-                notes: updatedNotes,
-            };
-        }),
+        set({
+            openedNote: updatedNote,
+            notes: updatedNotes,
+        });
+    },
     noteListView: "detailed",
-    setNoteListView: (view) =>
-        set(() => {
-            localforage.setItem("noteListView", view);
-            return { noteListView: view };
-        }),
+    setNoteListView: (view) => {
+        localforage.setItem("noteListView", view);
+        set({ noteListView: view });
+    },
 }));

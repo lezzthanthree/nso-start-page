@@ -60,7 +60,7 @@ const defaultSpeedDial: ISpeedDial[] = [
     },
 ];
 
-export const useSpeedDialState = create<ISpeedDialState>((set) => ({
+export const useSpeedDialState = create<ISpeedDialState>((set, get) => ({
     speedDial: [],
     initializeSpeedDial: async () => {
         try {
@@ -103,14 +103,14 @@ export const useSpeedDialState = create<ISpeedDialState>((set) => ({
         type: "name" | "icon" | "color" | "url",
         value: string,
     ) => {
+        const current = get().speedDial;
+        const updated = current.map((s) =>
+            s.id === id ? { ...s, [type]: value } : s,
+        );
+        set({ speedDial: updated });
+
         try {
-            const current =
-                (await localforage.getItem<ISpeedDial[]>(speedDialKey)) ?? [];
-            const updated = current.map((s) =>
-                s.id === id ? { ...s, [type]: value } : s,
-            );
             await localforage.setItem(speedDialKey, updated);
-            set({ speedDial: updated });
         } catch (error) {
             console.error("Failed to edit speedDial:", error);
         }
