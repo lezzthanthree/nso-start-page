@@ -1,91 +1,61 @@
 import { useEffect, useState } from "react";
 
 export const useClock = () => {
-    const [clock, setClock] = useState<Date>(() => new Date());
+    const [clock, setClock] = useState<Date>(new Date());
 
-    const [hour12, setHour12] = useState<string>(
-        clock.toLocaleTimeString([], {
+    useEffect(() => {
+        const interval = window.setInterval(() => {
+            setClock(new Date());
+        }, 1000);
+
+        return () => window.clearInterval(interval);
+    }, []);
+
+    if (!clock) {
+        return {
+            clock: new Date(),
+            hour12: "",
+            hour24: "",
+            hour12complete: "",
+            hour24complete: "",
+            weekday: "",
+            date: "",
+            dateComplete: "",
+        };
+    }
+
+    return {
+        clock,
+        hour12: clock.toLocaleTimeString([], {
             hour: "numeric",
             minute: "2-digit",
         }),
-    );
-
-    const [hour24, setHour24] = useState<string>(
-        clock.toLocaleTimeString([], {
+        hour24: clock.toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
             hour12: false,
         }),
-    );
-
-    const [date, setDate] = useState<string>(
-        clock.toLocaleDateString([], {
+        hour12complete: clock.toLocaleTimeString([], {
+            hour: "numeric",
+            minute: "2-digit",
+            second: "2-digit",
+        }),
+        hour24complete: clock.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: false,
+        }),
+        weekday: clock.toLocaleDateString([], { weekday: "long" }),
+        date: clock.toLocaleDateString([], {
             month: "numeric",
             day: "numeric",
             year: "numeric",
         }),
-    );
-
-    const [complete, setComplete] = useState<string>(
-        clock.toLocaleString([], {
-            weekday: "long",
+        dateComplete: clock.toLocaleDateString([], {
             month: "long",
             day: "numeric",
             year: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
-            second: "2-digit",
-
         }),
-    );
-
-    useEffect(() => {
-        const interval = window.setInterval(() => {
-            const clock = new Date();
-            setClock(clock);
-            setHour12(
-                clock.toLocaleTimeString([], {
-                    hour: "numeric",
-                    minute: "2-digit",
-                }),
-            );
-            setHour24(
-                clock.toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    hour12: false,
-                }),
-            );
-            setDate(
-                clock.toLocaleDateString([], {
-                    month: "numeric",
-                    day: "numeric",
-                    year: "numeric",
-                }),
-            );
-            setComplete(
-                clock.toLocaleString([], {
-                    weekday: "long",
-                    month: "long",
-                    day: "numeric",
-                    year: "numeric",
-                    hour: "numeric",
-                    minute: "2-digit",
-                    second: "2-digit",
-                }),
-            );
-        }, 1000);
-
-        return () => {
-            window.clearInterval(interval);
-        };
-    }, []);
-
-    return {
-        clock,
-        hour12,
-        hour24,
-        date,
-        complete,
     };
 };

@@ -8,7 +8,7 @@ import { useSpeedDialState } from "../../hooks/useSpeedDial";
 const SpeedDialWindow: React.FC = () => {
     const { activeWindows, openWindow } = useWindowState();
     const { speedDial, initializeSpeedDial } = useSpeedDialState();
-    const { complete } = useClock();
+    const { hour12complete, weekday, dateComplete } = useClock();
 
     useEffect(() => {
         const event = (events: KeyboardEvent) => {
@@ -41,7 +41,7 @@ const SpeedDialWindow: React.FC = () => {
                         Welcome back!
                     </p>
                     <p className="font-nso-dinkie-9px text-2xl">
-                        Today is {complete}.
+                        Today is {weekday}, {dateComplete}, {hour12complete}.
                     </p>
                 </div>
                 <div id="apps" className="flex flex-col gap-1">
@@ -68,7 +68,16 @@ const SpeedDialWindow: React.FC = () => {
                         <div className="p-4 flex justify-center items-center ">
                             <p className="font-nso-dinkie-9px">
                                 There's nothing in your Speed Dial! You can add
-                                by going to Settings.
+                                by going to{" "}
+                                <span
+                                    onClick={() => {
+                                        openWindow("settings");
+                                    }}
+                                    className="underline"
+                                >
+                                    Settings
+                                </span>
+                                .
                             </p>
                         </div>
                     )}

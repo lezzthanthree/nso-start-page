@@ -14,7 +14,7 @@ const SettingsGroup: React.FC<SettingsGroupProps> = ({
             <div id="header">
                 <p className="font-nso-pixelmplus-b text-4xl">{header}</p>
             </div>
-            <div id="settings-content" className="flex flex-col gap-2">
+            <div id="settings-content" className="flex flex-col gap-4">
                 {children}
             </div>
         </div>
