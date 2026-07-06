@@ -19,6 +19,7 @@ const Developer: React.FC = () => {
                             Speed Dial links will not redirect to reduce refresh
                             times.
                         </li>
+                        <li>Notification about mobile view is disabled</li>
                     </ul>
                 </div>
             </div>

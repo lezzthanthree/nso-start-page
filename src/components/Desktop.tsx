@@ -48,13 +48,6 @@ const Desktop: React.FC = () => {
                             openWindow("notepad");
                         }}
                     />
-                    <IconImage
-                        image="img/icons/ame.png"
-                        name="Settings"
-                        action={() => {
-                            openWindow("settings");
-                        }}
-                    />
                 </div>
             </div>
 
