@@ -12,7 +12,7 @@ const Task: React.FC<TaskProps> = ({ title, id }) => {
 
     return (
         <div
-            className={`flex flex-row gap-2 items-center border-2 px-2 py-1 ${active ? "border-b-white border-r-white border-t-nso-purple border-l-nso-purple" : "border-t-white border-l-white border-b-nso-purple border-r-nso-purple"} h-full w-full max-w-64`}
+            className={`flex flex-row gap-2 items-center border-2 px-2 py-1 ${active ? "border-b-white border-r-white border-t-nso-purple border-l-nso-purple" : "border-t-white border-l-white border-b-nso-purple border-r-nso-purple"} h-full w-full max-w-64 truncate`}
             onClick={() => {
                 openWindow(id);
             }}
