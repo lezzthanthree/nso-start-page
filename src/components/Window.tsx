@@ -78,7 +78,7 @@ export const Window: React.FC<WindowProps> = ({
                     id="title-bar"
                 >
                     <div className="bg-nso-purple h-5 w-5 shrink-0" />
-                    <span className="w-full text-[20px]/[20px] font-nso-dinkie-9px text-nso-purple">
+                    <span className="w-full text-[20px]/[20px]    ">
                         {title}
                     </span>
                     <div className="flex gap-1 h-5 shrink-0">

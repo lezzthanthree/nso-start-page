@@ -10,10 +10,8 @@ const Clock: React.FC = () => {
             className="flex flex-row gap-2 items-center border-2 p-1 border-b-white border-r-white border-t-nso-purple border-l-nso-purple"
         >
             <div className="flex flex-row gap-2">
-                <p className="font-nso-dinkie-9px text-nso-purple text-xl">
-                    {date}
-                </p>
-                <p className="font-nso-dinkie-9px text-nso-purple text-xl">
+                <p className="    text-xl">{date}</p>
+                <p className="    text-xl">
                     {is24 ? `${hour24}` : `${hour12}`}
                 </p>
             </div>

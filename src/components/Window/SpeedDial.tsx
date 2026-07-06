@@ -37,12 +37,12 @@ const SpeedDialWindow: React.FC = () => {
 
     return (
         <Window title="Speed Dial" id="speedDial">
-            <div className="flex w-200 p-4 text-nso-purple flex-col gap-4">
+            <div className="flex w-200 p-4   flex-col gap-4">
                 <div id="intro">
                     <p className="font-nso-pressstart-2p text-4xl">
                         {settings?.header}
                     </p>
-                    <p className="font-nso-dinkie-9px text-2xl">
+                    <p className="  text-2xl">
                         {settings?.description
                             .replace("{day}", weekday)
                             .replace("{date}", dateComplete)
@@ -52,7 +52,7 @@ const SpeedDialWindow: React.FC = () => {
                 <div id="apps" className="flex flex-col gap-1">
                     {speedDial.length > 0 ? (
                         <>
-                            <p className="font-nso-dinkie-9px text-xl">
+                            <p className="  text-xl">
                                 What do you want to do today?
                             </p>
                             <div
@@ -78,7 +78,7 @@ const SpeedDialWindow: React.FC = () => {
                         </>
                     ) : (
                         <div className="p-4 flex justify-center items-center ">
-                            <p className="font-nso-dinkie-9px">
+                            <p className=" ">
                                 There's nothing in your Speed Dial! You can add
                                 by going to{" "}
                                 <span
@@ -96,15 +96,15 @@ const SpeedDialWindow: React.FC = () => {
                 </div>
                 <div className="flex justify-center">
                     {activeWindows.includes("notepad") ? (
-                        <p className="font-nso-dinkie-9px">
+                        <p className=" ">
                             (Notepad is open! Automatic search is disabled.)
                         </p>
                     ) : activeWindows.includes("settings") ? (
-                        <p className="font-nso-dinkie-9px">
+                        <p className=" ">
                             (Settings is open! Automatic search is disabled.)
                         </p>
                     ) : (
-                        <p className="font-nso-dinkie-9px">
+                        <p className=" ">
                             A search bar will automatically pop up for you if
                             you start typing!
                         </p>

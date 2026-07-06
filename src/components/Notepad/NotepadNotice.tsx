@@ -20,7 +20,7 @@ const NotepadNotice: React.FC<NotepadNoticeProps> = () => {
     if (!showNotice) return;
 
     return (
-        <div className="absolute bg-[#eeeeeedd] flex flex-col justify-center items-center align-middle text-nso-purple font-nso-dinkie-9px text-xl w-full h-full p-4 gap-8">
+        <div className="absolute bg-[#eeeeeedd] flex flex-col justify-center items-center align-middle     text-xl w-full h-full p-4 gap-8">
             <div className="flex flex-col items-center gap-2">
                 <i className="hn hn-exclamation-triangle-solid text-4xl " />
                 <div>

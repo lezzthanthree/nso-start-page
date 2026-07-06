@@ -54,7 +54,7 @@ const SpeedDialSettings: React.FC = () => {
                 description="Add or remove links according to your preference."
             >
                 <>
-                    <p className="font-normal text-sm font-nso-dinkie-9px">
+                    <p className="font-normal text-sm  ">
                         For the list of icons, visit{" "}
                         <a
                             href="https://pixeliconlibrary.com/"
@@ -66,7 +66,7 @@ const SpeedDialSettings: React.FC = () => {
                         .
                     </p>
                     {speedDial.length > 0 && (
-                        <table className="w-full table-fixed font-nso-dinkie-9px text-xl">
+                        <table className="w-full table-fixed   text-xl">
                             <thead>
                                 <tr>
                                     <th>Name</th>

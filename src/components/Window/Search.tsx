@@ -97,7 +97,7 @@ const SearchWindow: React.FC = () => {
                         onClick={handleExecution}
                     />
                 </div>
-                <div className="flex flex-col justify-center items-center font-nso-dinkie-9px text-nso-purple ">
+                <div className="flex flex-col justify-center items-center     ">
                     {isURL && <p>Detected a URL!</p>}
                     <p>Press [ENTER] to {isURL ? "continue" : "search"}</p>
                     <p>

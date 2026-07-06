@@ -21,7 +21,7 @@ const SpeedDialInputBox: React.FC<InputBoxProps> = ({
     return (
         <input
             type={isColor ? "color" : "text"}
-            className={`flex-1 flex flex-row gap-2 items-center border-2 text-xl border-b-white border-r-white border-t-nso-purple border-l-nso-purple bg-nso-light-pink font-nso-dinkie-9px text-nso-purple w-full min-w-0 h-10 ${isColor ? "p-1 cursor-pointer" : "p-2"}`}
+            className={`flex-1 flex flex-row gap-2 items-center border-2 text-xl border-b-white border-r-white border-t-nso-purple border-l-nso-purple bg-nso-light-pink     w-full min-w-0 h-10 ${isColor ? "p-1 cursor-pointer" : "p-2"}`}
             value={value}
             placeholder={placeholder}
             onChange={(e) => {

@@ -18,7 +18,7 @@ const SimpleNote: React.FC<SimpleNote> = ({ id, title, timestamp }) => {
                 openNote(id);
             }}
         >
-            <p className="font-nso-pixelmplus-b text-nso-purple truncate">
+            <p className="font-nso-pixelmplus-b   truncate">
                 {title == "" ? "Untitled" : title}
             </p>
             <p className="shrink-0">{timestamp}</p>

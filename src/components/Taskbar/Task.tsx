@@ -18,9 +18,7 @@ const Task: React.FC<TaskProps> = ({ title, id }) => {
             }}
         >
             <div className="bg-nso-purple h-5 w-5 shrink-0" />
-            <p className="font-nso-dinkie-9px text-nso-purple text-xl">
-                {title}
-            </p>
+            <p className="    text-xl">{title}</p>
         </div>
     );
 };

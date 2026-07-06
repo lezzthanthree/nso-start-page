@@ -10,7 +10,7 @@ const DeveloperModeBar: React.FC = () => {
 
     return (
         <div
-            className="h-8 bg-red-600 text-white font-nso-dinkie-9px font-extrabold w-full items-center justify-center flex flex-col"
+            className="h-8 bg-red-600 text-white   font-extrabold w-full items-center justify-center flex flex-col"
             onClick={() => openWindow("developer")}
         >
             DEVELOPER MODE

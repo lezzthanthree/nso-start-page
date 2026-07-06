@@ -63,6 +63,11 @@
     --font-nso-pressstart-2p: "PressStart2P", "monospace";
 }
 
+html {
+    font-family: "DinkieBitmap 9px";
+    color: #4d23cf;
+}
+
 img {
     image-rendering: optimizeSpeed;
     image-rendering: -moz-crisp-edges;

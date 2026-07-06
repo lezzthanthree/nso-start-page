@@ -21,10 +21,10 @@ const InputBox: React.FC<InputBoxProps> = ({
 }) => {
     return (
         <div className="flex flex-col flex-1">
-            {label && <p className="font-nso-dinkie-9px text-xl">{label}</p>}
+            {label && <p className="  text-xl">{label}</p>}
             <input
                 type={type ?? "text"}
-                className="flex-1 flex flex-row gap-2 items-center border-2 text-xl border-b-white border-r-white border-t-nso-purple border-l-nso-purple bg-nso-light-pink font-nso-dinkie-9px text-nso-purple p-2 w-full min-w-0"
+                className="flex-1 flex flex-row gap-2 items-center border-2 text-xl border-b-white border-r-white border-t-nso-purple border-l-nso-purple bg-nso-light-pink     p-2 w-full min-w-0"
                 value={value}
                 placeholder={placeholder}
                 onChange={(e) => {
@@ -33,7 +33,7 @@ const InputBox: React.FC<InputBoxProps> = ({
                 }}
                 ref={ref}
             />
-            {footer && <p className="font-nso-dinkie-9px text-sm">{footer}</p>}
+            {footer && <p className="  text-sm">{footer}</p>}
         </div>
     );
 };
