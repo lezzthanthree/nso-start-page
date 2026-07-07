@@ -2,12 +2,14 @@ import React, { useRef, useState } from "react";
 import { useStartState } from "../../hooks/useStart";
 import StartMenuOption from "./StartMenuOption";
 import { useWindowState } from "../../hooks/useWindowStates";
+import { useFXState } from "../../hooks/useFX";
 
 const StartMenu: React.FC = () => {
     const { active } = useStartState();
     const ref = useRef<HTMLDivElement | null>(null);
     const [height, setHeight] = useState(250);
     const { openWindow } = useWindowState();
+    const { setEffect } = useFXState();
 
     const handleImageLoad = () => {
         if (ref.current) {
@@ -46,6 +48,7 @@ const StartMenu: React.FC = () => {
                 <StartMenuOption
                     name="Restart"
                     action={() => {
+                        setEffect("restarting", true);
                         location.reload();
                     }}
                 />

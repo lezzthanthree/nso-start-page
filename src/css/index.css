@@ -61,6 +61,17 @@
     --font-nso-pixelmplus-b: "PixelMplus10 Bold", "monospace";
     --font-nso-pixelmplus-r: "PixelMplus10 Regular", "monospace";
     --font-nso-pressstart-2p: "PressStart2P", "monospace";
+
+    --animate-fade-in: fade-in 0.2s ;
+
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 }
 
 html {

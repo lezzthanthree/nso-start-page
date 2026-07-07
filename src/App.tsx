@@ -5,6 +5,7 @@ import { useExperimentalState } from "./hooks/useExperimental";
 import DeveloperModeBar from "./components/DeveloperModeBar";
 import MobileViewNotification from "./components/MobileViewNotification";
 import StartMenu from "./components/Taskbar/StartMenu";
+import Effects from "./components/Effects";
 
 function App() {
     const { initializeExperimental } = useExperimentalState();
@@ -20,6 +21,7 @@ function App() {
             <Desktop />
             <Taskbar />
             <StartMenu />
+            <Effects />
         </div>
     );
 }
