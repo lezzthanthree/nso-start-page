@@ -35,6 +35,7 @@ const StartMenu: React.FC = () => {
                     }}
                 />
                 <StartMenuOption name="Soon..." disabled />
+                <StartMenuOption name="Soon..." disabled />
                 <StartMenuOption name="Credits" />
                 <StartMenuOption
                     name="System Settings"
@@ -48,7 +49,6 @@ const StartMenu: React.FC = () => {
                         location.reload();
                     }}
                 />
-                <StartMenuOption name="Shut Down" />
             </div>
         </div>
     );
