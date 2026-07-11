@@ -3,7 +3,8 @@ import { Window } from "../Window";
 import { useWindowState } from "../../hooks/useWindowStates";
 import InputBox from "../InputBox";
 import Button from "../Button";
-import { useSearchState } from "../../hooks/useSearchState";
+import { useSearchState } from "../../hooks/useSearch";
+import SearchHistoryList from "../Search/SearchHistoryList";
 
 const SearchWindow: React.FC = () => {
     const { closeWindow } = useWindowState();
@@ -83,21 +84,24 @@ const SearchWindow: React.FC = () => {
                     alt=""
                     className="self-center w-75 mt-16"
                 />
-                <div className="flex flex-row gap-2 px-16 items-center">
-                    <InputBox
-                        placeholder="Search Kangle..."
-                        onChange={(newValue) => {
-                            setSearch(newValue as string);
-                        }}
-                        value={search}
-                        ref={inputBox}
-                    />
-                    <Button
-                        label={isURL ? "I'm Feeling DENPA!" : "Search"}
-                        onClick={handleExecution}
-                    />
+                <div className="relative px-16">
+                    <div className="flex flex-row gap-2 items-center">
+                        <InputBox
+                            placeholder="Search Kangle..."
+                            onChange={(newValue) => {
+                                setSearch(newValue as string);
+                            }}
+                            value={search}
+                            ref={inputBox}
+                        />
+                        <Button
+                            label={isURL ? "I'm Feeling DENPA!" : "Search"}
+                            onClick={handleExecution}
+                        />
+                    </div>
+                    <SearchHistoryList />
                 </div>
-                <div className="flex flex-col justify-center items-center     ">
+                <div className="flex flex-col justify-center items-center">
                     {isURL && <p>Detected a URL!</p>}
                     <p>Press [ENTER] to {isURL ? "continue" : "search"}</p>
                     <p>
@@ -107,7 +111,7 @@ const SearchWindow: React.FC = () => {
                             : "clear search bar"}
                     </p>
                 </div>
-                <div className="h-20" />
+                <div className="h-[10vh]" />
             </div>
         </Window>
     );

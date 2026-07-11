@@ -9,4 +9,5 @@ export const windowNames = {
 
 export const noteKey = "notes";
 export const speedDialKey = "speedDial";
-export const speedDialSettingsKey = "speedDialSettings_test";
+export const speedDialSettingsKey = "speedDialSettings";
+export const searchListSettingsKey = "searchListSettings";
