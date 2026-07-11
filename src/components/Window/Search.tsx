@@ -56,6 +56,12 @@ const SearchWindow: React.FC = () => {
                         inputBox.current.focus();
                     }
                     break;
+                case "ArrowUp":
+                case "ArrowDown":
+                    if (inputBox.current) {
+                        inputBox.current.blur();
+                    }
+                    break;
                 default:
                     if (!key.match(/^[\w\s\p{P}]$/u)) break;
                     if (inputBox.current) {
@@ -108,6 +114,7 @@ const SearchWindow: React.FC = () => {
                 <div className="flex flex-col justify-center items-center">
                     {isURL && <p>Detected a URL!</p>}
                     <p>Press [ENTER] to {isURL ? "continue" : "search"}</p>
+                    <p>Press [TAB] to auto-complete</p>
                     <p>
                         Press [ESC] to{" "}
                         {search.length == 0

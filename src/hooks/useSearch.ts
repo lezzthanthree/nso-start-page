@@ -1,11 +1,8 @@
 import localforage from "localforage";
 import { create } from "zustand";
 import { searchListSettingsKey as searchListKey } from "../data/Consts";
+import type ISearchHistory from "../types/ISearchHistory";
 
-interface ISearchHistory {
-    query: string;
-    date: Date;
-}
 interface ISearchState {
     search: string;
     searchHistoryList: ISearchHistory[];
@@ -32,10 +29,8 @@ export const useSearchState = create<ISearchState>((set, get) => ({
     },
     addQuery: async (query) => {
         const list = get().searchHistoryList;
-        if (list.find((s) => s.query.toLowerCase() === query)) return;
-
         const newSearchList = [
-            ...list,
+            ...list.filter((s) => s.query.toLowerCase() != query),
             {
                 query,
                 date: new Date(),
