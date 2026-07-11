@@ -5,6 +5,7 @@ import Clock from "./Taskbar/Clock";
 import Task from "./Taskbar/Task";
 import { useWindowState } from "../hooks/useWindowStates";
 import { windowNames } from "../data/Consts";
+import QuickLaunch from "./Taskbar/QuickLaunch";
 
 const Taskbar: React.FC = () => {
     const { activeWindows } = useWindowState();
@@ -15,6 +16,8 @@ const Taskbar: React.FC = () => {
             id="taskbar"
         >
             <StartButton />
+            <Separator />
+            <QuickLaunch />
             <Separator />
             <div
                 id="tasks"
