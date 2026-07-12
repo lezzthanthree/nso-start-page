@@ -15,6 +15,14 @@ function App() {
     useEffect(() => {
         initializeExperimental();
         initializeSettings();
+        const clickSounds = () => {
+            new Audio("snd/click.wav").play();
+        };
+        document.addEventListener("mousedown", clickSounds);
+
+        return () => {
+            document.removeEventListener("mousedown", clickSounds);
+        };
     }, []);
 
     return (

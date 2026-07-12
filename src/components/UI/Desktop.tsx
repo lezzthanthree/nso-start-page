@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import IconImage from "./IconImage";
 import { useWindowState } from "../../hooks/useWindowStates";
 import SpeedDialWindow from "../Window/SpeedDial";
@@ -10,22 +10,11 @@ import CreditsWindow from "../Window/Credits";
 
 const Desktop: React.FC = () => {
     const { activeWindows, openWindow } = useWindowState();
-
-    useEffect(() => {
-        document.addEventListener(
-            "mousedown",
-            () => {
-                new Audio("snd/click.wav").play();
-            },
-            true,
-        );
-    }, []);
-
     return (
-        <div className="flex flex-1 w-full p-8 relative" id="desktop">
+        <div className="flex flex-1 w-full relative p-8" id="desktop">
             <div
                 id="icon-area"
-                className="inset-8 flex absolute pointer-events-none overflow-hidden"
+                className="flex absolute pointer-events-none overflow-hidden"
             >
                 <div className="flex flex-col gap-4 pointer-events-auto flex-wrap">
                     <IconImage
@@ -52,23 +41,19 @@ const Desktop: React.FC = () => {
                 </div>
             </div>
 
-            <div
-                id="free-window-area"
-                className="inset-0 flex absolute pointer-events-none"
-            >
+            <div id="free-window-area" className="pointer-events-none m-8">
+                {activeWindows.includes("speedDial") && <SpeedDialWindow />}
+                {activeWindows.includes("search") && <SearchWindow />}
                 {activeWindows.includes("notepad") && <NotepadWindow />}
+                {activeWindows.includes("settings") && <SettingsWindow />}
+                {activeWindows.includes("credits") && <CreditsWindow />}
                 {activeWindows.includes("developer") && <DeveloperWindow />}
             </div>
 
             <div
                 id="center-window-area"
                 className="inset-0 flex absolute justify-center items-center pointer-events-none"
-            >
-                {activeWindows.includes("settings") && <SettingsWindow />}
-                {activeWindows.includes("speedDial") && <SpeedDialWindow />}
-                {activeWindows.includes("search") && <SearchWindow />}
-                {activeWindows.includes("credits") && <CreditsWindow />}
-            </div>
+            ></div>
         </div>
     );
 };

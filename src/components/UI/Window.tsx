@@ -8,7 +8,37 @@ interface WindowProps {
     id: string;
     x?: number;
     y?: number;
+    startingPosition?:
+        | "center"
+        | "topLeft"
+        | "topRight"
+        | "bottomLeft"
+        | "bottomRight";
 }
+
+const stylePositions = {
+    center: {
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+    },
+    topLeft: {
+        top: "0",
+        left: "0",
+    },
+    topRight: {
+        top: "0",
+        right: "0",
+    },
+    bottomLeft: {
+        bottom: "0",
+        left: "0",
+    },
+    bottomRight: {
+        bottom: "0",
+        right: "0",
+    },
+};
 
 export const Window: React.FC<WindowProps> = ({
     title,
@@ -16,6 +46,7 @@ export const Window: React.FC<WindowProps> = ({
     id,
     x,
     y,
+    startingPosition = "center",
 }) => {
     const nodeRef = useRef(null);
 
@@ -69,8 +100,8 @@ export const Window: React.FC<WindowProps> = ({
             <div
                 id="window"
                 ref={nodeRef}
-                className={`absolute border-2 border-nso-purple ${active ? "bg-nso-cyan" : "bg-nso-gray"} px-1 pt-1 box-border flex flex-col shadow-[4px_4px_#4d23cf55] min-w-64 min-h-64 pointer-events-auto`}
-                style={{ zIndex: z }}
+                className={`absolute border-2 border-nso-purple ${active ? "bg-nso-cyan" : "bg-nso-gray"} px-1 pt-1 box-border flex flex-col shadow-[4px_4px_#4d23cf55] min-w-64 min-h-64 pointer-events-auto ${startingPosition === "center" ? "-translate-1/2" : "m-8"}`}
+                style={{ zIndex: z, ...stylePositions[startingPosition] }}
                 onClick={handleFocus}
             >
                 <div
