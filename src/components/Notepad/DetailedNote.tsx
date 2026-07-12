@@ -24,7 +24,7 @@ const DetailedNote: React.FC<NoteProps> = ({
                 openNote(id);
             }}
         >
-            <p className="font-nso-pixelmplus-b   text-2xl truncate">
+            <p className="font-nso-dinkie-9px font-extrabold text-2xl truncate">
                 {title == "" ? "Untitled" : title}
             </p>
             <p className="    text-xl truncate">{content}</p>
