@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNotesState } from "../../hooks/useNotes";
 import Button from "../UI/Button";
 import NoteNotFound from "./NoteNotFound";
+import { useGeneralSettingsState } from "../../hooks/useGeneralSettings";
 
 const Editor: React.FC = () => {
     const [confirmation, setConfirmation] = useState<boolean>(false);
@@ -12,6 +13,7 @@ const Editor: React.FC = () => {
         editTitleNote,
         editContentNote,
     } = useNotesState();
+    const { hour24 } = useGeneralSettingsState();
 
     if (!openedNote) return <NoteNotFound />;
 
@@ -26,7 +28,11 @@ const Editor: React.FC = () => {
                         editTitleNote(value);
                     }}
                 />
-                <p>{openedNote.modifiedAt.toLocaleString()}</p>
+                <p>
+                    {openedNote.modifiedAt.toLocaleString([], {
+                        hour12: !hour24,
+                    })}
+                </p>
             </div>
             <textarea
                 className="text-xl resize-none flex-1 focus:p-2 transition-all"

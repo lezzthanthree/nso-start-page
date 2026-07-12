@@ -5,8 +5,11 @@ import Separator from "./Separator";
 import DetailedNote from "./DetailedNote";
 import NoFiles from "./NoFiles";
 import SimpleNote from "./SimpleNote";
+import { useGeneralSettingsState } from "../../hooks/useGeneralSettings";
 
 const NoteMenu: React.FC = () => {
+    const { hour24 } = useGeneralSettingsState();
+
     const { notes, createNote, noteListView, setNoteListView } =
         useNotesState();
 
@@ -54,7 +57,12 @@ const NoteMenu: React.FC = () => {
                                 <SimpleNote
                                     id={note.id}
                                     title={note.title}
-                                    timestamp={note.modifiedAt.toLocaleString()}
+                                    timestamp={note.modifiedAt.toLocaleString(
+                                        [],
+                                        {
+                                            hour12: !hour24,
+                                        },
+                                    )}
                                     key={note.id}
                                 />
                             ) : (
@@ -62,7 +70,12 @@ const NoteMenu: React.FC = () => {
                                     id={note.id}
                                     title={note.title}
                                     content={note.content}
-                                    timestamp={note.modifiedAt.toLocaleString()}
+                                    timestamp={note.modifiedAt.toLocaleString(
+                                        [],
+                                        {
+                                            hour12: !hour24,
+                                        },
+                                    )}
                                     key={note.id}
                                 />
                             ),
