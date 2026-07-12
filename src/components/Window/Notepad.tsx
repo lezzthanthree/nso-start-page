@@ -31,7 +31,13 @@ const NotepadWindow: React.FC = () => {
     }, [openedNote]);
 
     return (
-        <Window title="Notepad" id="notepad" startingPosition="topLeft">
+        <Window
+            title="Notepad"
+            id="notepad"
+            startingPosition="topLeft"
+            x={150}
+            y={50}
+        >
             <NotepadNotice />
             <div className="w-lg h-150 p-4    ">
                 {!openedNote ? <NoteMenu /> : <Editor />}

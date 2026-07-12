@@ -100,7 +100,7 @@ export const Window: React.FC<WindowProps> = ({
             <div
                 id="window"
                 ref={nodeRef}
-                className={`absolute border-2 border-nso-purple ${active ? "bg-nso-cyan" : "bg-nso-gray"} px-1 pt-1 box-border flex flex-col shadow-[4px_4px_#4d23cf55] min-w-64 min-h-64 pointer-events-auto ${startingPosition === "center" ? "-translate-1/2" : "m-8"}`}
+                className={`absolute border-2 border-nso-purple ${active ? "bg-nso-cyan" : "bg-nso-gray"} px-1 pt-1 box-border flex flex-col shadow-[4px_4px_#4d23cf55] min-w-64 min-h-64 pointer-events-auto ${startingPosition === "center" ? "-translate-1/2" : ""}`}
                 style={{ zIndex: z, ...stylePositions[startingPosition] }}
                 onClick={handleFocus}
             >

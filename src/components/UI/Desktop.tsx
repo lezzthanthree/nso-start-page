@@ -41,7 +41,7 @@ const Desktop: React.FC = () => {
                 </div>
             </div>
 
-            <div id="free-window-area" className="pointer-events-none m-8">
+            <div id="free-window-area" className="pointer-events-none">
                 {activeWindows.includes("speedDial") && <SpeedDialWindow />}
                 {activeWindows.includes("search") && <SearchWindow />}
                 {activeWindows.includes("notepad") && <NotepadWindow />}
