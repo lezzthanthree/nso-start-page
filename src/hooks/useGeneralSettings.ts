@@ -18,7 +18,7 @@ export const useGeneralSettingsState = create<IGeneralSettingState>((set) => ({
             hour24: (await localforage.getItem("hour24")) ?? false,
             hideSearchTip:
                 (await localforage.getItem("hideSearchTip")) ?? false,
-            audio: (await localforage.getItem("audio")) ?? false,
+            audio: (await localforage.getItem("audio")) ?? true,
         });
     },
     changeSettings: async (type, state) => {
