@@ -10,7 +10,7 @@ const SettingsGroup: React.FC<SettingsGroupProps> = ({
     children,
 }) => {
     return (
-        <div id="speed-dial-settings" className="flex flex-col">
+        <div id="speed-dial-settings" className="flex flex-col border-b-4 border-nso-purple pb-4">
             <div id="header">
                 <p className="text-4xl font-bold">{header}</p>
             </div>

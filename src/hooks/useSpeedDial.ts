@@ -34,6 +34,7 @@ interface ISpeedDialState {
         gap: number,
         type: "horizontal" | "vertical",
     ) => Promise<void>;
+    default: () => Promise<void>;
 }
 
 interface ISpeedDialSettings {
@@ -187,10 +188,7 @@ export const useSpeedDialState = create<ISpeedDialState>((set, get) => ({
             console.error("Failed to edit greeting settings:", error);
         }
     },
-    editGapSettings: async (
-        gap: number,
-        type: "horizontal" | "vertical",
-    ) => {
+    editGapSettings: async (gap: number, type: "horizontal" | "vertical") => {
         const currentSettings = get().settings ?? defaultSpeedDialSettings;
         const updated: ISpeedDialSettings = {
             ...currentSettings,
@@ -206,5 +204,9 @@ export const useSpeedDialState = create<ISpeedDialState>((set, get) => ({
         } catch (error) {
             console.error("Failed to edit gap settings:", error);
         }
+    },
+    default: async () => {
+        await localforage.setItem(speedDialKey, defaultSpeedDial);
+        set({ speedDial: defaultSpeedDial });
     },
 }));

@@ -50,10 +50,6 @@ const Desktop: React.FC = () => {
                 {activeWindows.includes("developer") && <DeveloperWindow />}
             </div>
 
-            <div
-                id="center-window-area"
-                className="inset-0 flex absolute justify-center items-center pointer-events-none"
-            ></div>
         </div>
     );
 };

@@ -14,7 +14,7 @@ const SettingsGroupSection: React.FC<SettingsGroupSectionProps> = ({
     return (
         <div
             id="settings-content-section"
-            className="flex flex-col gap-1 border-t-4 pt-4  border-nso-purple"
+            className="flex flex-col gap-1 pt-4 border-t border-dotted  border-nso-purple"
         >
             <div>
                 <p id="settings-content-section-header" className="  text-2xl">

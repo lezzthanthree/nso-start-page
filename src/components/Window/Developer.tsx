@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Window } from "../UI/Window";
 import Button from "../UI/Button";
+import { useSpeedDialState } from "../../hooks/useSpeedDial";
 class InternetOverdose extends Error {
     constructor() {
         super();
@@ -16,8 +17,9 @@ const Crash: React.FC = () => {
 
 const DeveloperWindow: React.FC = () => {
     const [crash, setCrash] = useState(false);
+    const { default: speedDialDefault } = useSpeedDialState();
     return (
-        <Window title="Developer Mode" id="developer" x={50} y={50}>
+        <Window title="Developer Mode" id="developer">
             <div className="w-4xl flex flex-col gap-4    p-4 overflow-y-scroll">
                 <div id="header">
                     <p className="font-nso-pressstart-2p text-4xl">
@@ -45,6 +47,12 @@ const DeveloperWindow: React.FC = () => {
                         label="Intentionally Crash"
                         onClick={() => {
                             setCrash(true);
+                        }}
+                    />
+                    <Button
+                        label="Reset Speed Dial to default"
+                        onClick={() => {
+                            speedDialDefault();
                         }}
                     />
                 </div>
