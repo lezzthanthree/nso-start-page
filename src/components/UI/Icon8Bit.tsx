@@ -1,5 +1,6 @@
 import React from "react";
 import { useExperimentalState } from "../../hooks/useExperimental";
+import { useAudioManager } from "../../hooks/useAudioManager";
 
 interface Icon8BitProps {
     icon: string;
@@ -19,10 +20,11 @@ const Icon8Bit: React.FC<Icon8BitProps> = ({
     from,
 }) => {
     const { experimental } = useExperimentalState();
+    const { playSound } = useAudioManager();
 
     const handleAction = () => {
         if (execute) {
-            new Audio("snd/execute.wav").play().catch((e) => console.log(e));
+            playSound("snd/execute.wav");
         }
 
         if (experimental && from == "speed-dial") {

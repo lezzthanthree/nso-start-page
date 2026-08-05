@@ -1,13 +1,15 @@
 import { useEffect } from "react";
 import { useExperimentalState } from "../../hooks/useExperimental";
+import { useAudioManager } from "../../hooks/useAudioManager";
 
 const ErrorFallback = ({ error }: { error: Error }) => {
     const { experimental } = useExperimentalState();
+    const { playSound } = useAudioManager();
 
     useEffect(() => {
         // To avoid repetitive noise when doing something
-        if (!experimental) new Audio("snd/bluescreen.wav").play();
-        else new Audio("snd/bluescreen-short.wav").play();
+        if (!experimental) playSound("snd/bluescreen.wav");
+        else playSound("snd/bluescreen-short.wav");
     }, []);
 
     return (

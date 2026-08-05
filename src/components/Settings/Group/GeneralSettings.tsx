@@ -5,7 +5,7 @@ import Checkbox from "../../UI/Checkbox";
 import { useGeneralSettingsState } from "../../../hooks/useGeneralSettings";
 
 const GeneralSettings: React.FC = () => {
-    const { hour24, hideSearchTip, changeSettings } = useGeneralSettingsState();
+    const { hour24, hideSearchTip, audio, changeSettings } = useGeneralSettingsState();
 
     return (
         <SettingsGroup header="General">
@@ -17,6 +17,14 @@ const GeneralSettings: React.FC = () => {
                         state={hour24}
                         onClick={() => {
                             changeSettings("hour24", !hour24);
+                        }}
+                    />
+                    <Checkbox
+                        id="audio"
+                        label="Enable audio"
+                        state={audio}
+                        onClick={() => {
+                            changeSettings("audio", !audio);
                         }}
                     />
                     <Checkbox

@@ -1,4 +1,5 @@
 import React from "react";
+import { useAudioManager } from "../../hooks/useAudioManager";
 
 interface IconImageProps {
     image: string;
@@ -13,9 +14,11 @@ const IconImage: React.FC<IconImageProps> = ({
     action,
     execute = false,
 }) => {
+    const { playSound } = useAudioManager();
+
     const handleAction = () => {
         if (execute) {
-            new Audio("snd/execute.wav").play().catch((e) => console.log(e));
+            playSound("snd/execute.wav");
         }
         action();
     };

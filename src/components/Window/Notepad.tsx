@@ -4,9 +4,11 @@ import { useNotesState } from "../../hooks/useNotes";
 import NoteMenu from "../Notepad/NoteMenu";
 import Editor from "../Notepad/Editor";
 import NotepadNotice from "../Notepad/NotepadNotice";
+import { useAudioManager } from "../../hooks/useAudioManager";
 
 const NotepadWindow: React.FC = () => {
     const { initializeNotepad, openedNote, closeNote } = useNotesState();
+    const { playSound } = useAudioManager();
 
     useEffect(() => {
         initializeNotepad();
@@ -19,7 +21,7 @@ const NotepadWindow: React.FC = () => {
                 case "Escape":
                     if (!openedNote) break;
                     closeNote();
-                    new Audio("snd/window_close.wav").play();
+                    playSound("snd/window_close.wav");
                     break;
             }
         };

@@ -8,11 +8,13 @@ import StartMenu from "./components/Taskbar/StartMenu";
 import Effects from "./components/UI/Effects";
 import { useGeneralSettingsState } from "./hooks/useGeneralSettings";
 import { useSpeedDialState } from "./hooks/useSpeedDial";
+import { useAudioManager } from "./hooks/useAudioManager";
 
 function App() {
     const { initializeExperimental } = useExperimentalState();
-    const { initializeSettings } = useGeneralSettingsState();
+    const { initializeSettings, audio } = useGeneralSettingsState();
     const { initializeSpeedDial } = useSpeedDialState();
+    const { playSound } = useAudioManager();
 
     useEffect(() => {
         initializeExperimental();
@@ -20,14 +22,14 @@ function App() {
         initializeSpeedDial();
 
         const clickSounds = () => {
-            new Audio("snd/click.wav").play();
+            playSound("snd/click.wav");
         };
         document.addEventListener("mousedown", clickSounds);
 
         return () => {
             document.removeEventListener("mousedown", clickSounds);
         };
-    }, []);
+    }, [audio]);
 
     return (
         <div className="w-screen h-screen bg-[url('/img/nso_bg_1080.png')] flex flex-col items-center justify-center relative overflow-hidden">

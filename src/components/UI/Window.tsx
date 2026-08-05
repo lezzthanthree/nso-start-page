@@ -1,6 +1,7 @@
 import Draggable from "react-draggable";
 import React, { useEffect, useRef, useState } from "react";
 import { useWindowState } from "../../hooks/useWindowStates";
+import { useAudioManager } from "../../hooks/useAudioManager";
 
 interface WindowProps {
     title: string;
@@ -49,6 +50,7 @@ export const Window: React.FC<WindowProps> = ({
     startingPosition = "center",
 }) => {
     const nodeRef = useRef(null);
+    const { playSound } = useAudioManager();
 
     const {
         focusedWindow,
@@ -63,11 +65,11 @@ export const Window: React.FC<WindowProps> = ({
     const [z, setZ] = useState(zCount);
 
     useEffect(() => {
-        new Audio("snd/window_open.wav").play();
+        playSound("snd/window_open.wav");
     }, []);
 
     const handleClose = () => {
-        new Audio("snd/window_close.wav").play();
+        playSound("snd/window_close.wav");
         closeWindow(id);
     };
 

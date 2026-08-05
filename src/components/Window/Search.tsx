@@ -5,9 +5,12 @@ import InputBox from "../UI/InputBox";
 import Button from "../UI/Button";
 import { useSearchState } from "../../hooks/useSearch";
 import SearchHistoryList from "../Search/SearchHistoryList";
+import { useAudioManager } from "../../hooks/useAudioManager";
 
 const SearchWindow: React.FC = () => {
     const { closeWindow } = useWindowState();
+    const { playSound } = useAudioManager();
+
     const {
         search,
         setSearch,
@@ -27,7 +30,7 @@ const SearchWindow: React.FC = () => {
         /\b[a-zA-Z0-9-]+\.[a-zA-Z]{2,5}(?!\s)\b/.test(toSearch);
 
     const handleExecution = () => {
-        new Audio("snd/execute.wav").play();
+        playSound("snd/execute.wav");
 
         addQuery(toSearch);
         if (isURL) {
@@ -55,7 +58,7 @@ const SearchWindow: React.FC = () => {
                         setTemporary("");
                         break;
                     }
-                    new Audio("snd/window_close.wav").play();
+                    playSound("snd/window_close.wav");
                     clear();
                     closeWindow("search");
                     break;
