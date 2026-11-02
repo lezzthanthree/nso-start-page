@@ -16,3 +16,4 @@ This project is in heavy development.
 - [ ] Allow selection of search engine (Google, DuckDuckGo, Bing, etc.)
 - [ ] Change background image 
 - [X] 12/24 hour clock option
+- [ ] Stock Watchlist
