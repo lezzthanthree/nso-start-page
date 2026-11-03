@@ -27,7 +27,7 @@ const SettingsGroupSection: React.FC<SettingsGroupSectionProps> = ({
                     {description}
                 </p>
             </div>
-            <div className="w-full overflow-auto flex flex-col">{children}</div>
+            <div className="w-full flex flex-col">{children}</div>
         </div>
     );
 };
