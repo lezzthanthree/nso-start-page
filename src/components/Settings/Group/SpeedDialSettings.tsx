@@ -172,26 +172,64 @@ const SpeedDialSettings: React.FC = () => {
                 description="Define the horizontal and vertical spacing between links."
             >
                 <div className="flex flex-col gap-2">
-                    <InputBox
-                        value={settings?.gap.horizontal}
-                        label="Horizontal Gap"
-                        onChange={(newValue: string | number) => {
-                            const numeric = Number(newValue);
-                            void editGapSettings(numeric, "horizontal");
-                        }}
-                        type="number"
-                        footer="The gap between individual links."
-                    />
-                    <InputBox
-                        value={settings?.gap.vertical}
-                        label="Vertical Gap"
-                        onChange={(newValue: string | number) => {
-                            const numeric = Number(newValue);
-                            void editGapSettings(numeric, "vertical");
-                        }}
-                        type="number"
-                        footer="The gap between lines when links wrap onto a new line."
-                    />
+                    <div className="flex max-w-sm flex-col gap-1">
+                        <div className="flex items-baseline justify-between gap-2">
+                            <label htmlFor="horizontal-gap" className="text-xl">
+                                Horizontal Gap
+                            </label>
+                            <output htmlFor="horizontal-gap" className="text-lg">
+                                {settings.gap.horizontal} px
+                            </output>
+                        </div>
+                        <input
+                            id="horizontal-gap"
+                            type="range"
+                            min="0"
+                            max="128"
+                            step="1"
+                            value={settings.gap.horizontal}
+                            aria-valuetext={`${settings.gap.horizontal} pixels`}
+                            onChange={(event) => {
+                                void editGapSettings(
+                                    Number(event.target.value),
+                                    "horizontal",
+                                );
+                            }}
+                            className="nso-range w-full"
+                        />
+                        <p className="text-base">
+                            The gap between individual links.
+                        </p>
+                    </div>
+                    <div className="flex max-w-sm flex-col gap-1">
+                        <div className="flex items-baseline justify-between gap-2">
+                            <label htmlFor="vertical-gap" className="text-xl">
+                                Vertical Gap
+                            </label>
+                            <output htmlFor="vertical-gap" className="text-lg">
+                                {settings.gap.vertical} px
+                            </output>
+                        </div>
+                        <input
+                            id="vertical-gap"
+                            type="range"
+                            min="0"
+                            max="64"
+                            step="1"
+                            value={settings.gap.vertical}
+                            aria-valuetext={`${settings.gap.vertical} pixels`}
+                            onChange={(event) => {
+                                void editGapSettings(
+                                    Number(event.target.value),
+                                    "vertical",
+                                );
+                            }}
+                            className="nso-range w-full"
+                        />
+                        <p className="text-base">
+                            The gap between lines when links wrap onto a new line.
+                        </p>
+                    </div>
                 </div>
             </SettingsGroupSection>
         </SettingsGroup>
