@@ -1,5 +1,6 @@
 import React from "react";
 import { useAudioManager } from "../../hooks/useAudioManager";
+import { useGeneralSettingsState } from "../../hooks/useGeneralSettings";
 
 interface IconImageProps {
     image: string;
@@ -15,6 +16,9 @@ const IconImage: React.FC<IconImageProps> = ({
     execute = false,
 }) => {
     const { playSound } = useAudioManager();
+    const desktopIconTextBackground = useGeneralSettingsState(
+        (state) => state.desktopIconTextBackground,
+    );
 
     const handleAction = () => {
         if (execute) {
@@ -29,7 +33,15 @@ const IconImage: React.FC<IconImageProps> = ({
             onClick={handleAction}
         >
             <img src={image} alt="" className="h-16 w-16 object-cover icon" />
-            <p>{name}</p>
+            <p
+                className={
+                    desktopIconTextBackground
+                        ? "bg-nso-purple text-nso-white p-px"
+                        : ""
+                }
+            >
+                {name}
+            </p>
         </div>
     );
 };

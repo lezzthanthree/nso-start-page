@@ -18,6 +18,7 @@ const GeneralSettings: React.FC = () => {
     const {
         hour24,
         hideSearchTip,
+        desktopIconTextBackground,
         audio,
         background,
         backgroundColorDepth,
@@ -254,6 +255,17 @@ const GeneralSettings: React.FC = () => {
                         state={hideSearchTip}
                         onClick={() => {
                             changeSettings("hideSearchTip", !hideSearchTip);
+                        }}
+                    />
+                    <Checkbox
+                        id="desktopIconTextBackground"
+                        label="Highlight desktop icon text"
+                        state={desktopIconTextBackground}
+                        onClick={() => {
+                            changeSettings(
+                                "desktopIconTextBackground",
+                                !desktopIconTextBackground,
+                            );
                         }}
                     />
                 </div>

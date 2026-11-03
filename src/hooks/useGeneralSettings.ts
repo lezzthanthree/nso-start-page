@@ -14,6 +14,7 @@ export type BackgroundColorDepth = "default" | "4-bit" | "8-bit";
 interface IGeneralSettingState {
     hour24: boolean;
     hideSearchTip: boolean;
+    desktopIconTextBackground: boolean;
     audio: boolean;
     background: string | null;
     backgroundColorDepth: BackgroundColorDepth;
@@ -32,6 +33,7 @@ interface IGeneralSettingState {
 export const useGeneralSettingsState = create<IGeneralSettingState>((set) => ({
     hour24: false,
     hideSearchTip: false,
+    desktopIconTextBackground: false,
     audio: true,
     background: null,
     backgroundColorDepth: "default",
@@ -46,6 +48,10 @@ export const useGeneralSettingsState = create<IGeneralSettingState>((set) => ({
             hour24: (await localforage.getItem("hour24")) ?? false,
             hideSearchTip:
                 (await localforage.getItem("hideSearchTip")) ?? false,
+            desktopIconTextBackground:
+                (await localforage.getItem<boolean>(
+                    "desktopIconTextBackground",
+                )) ?? false,
             audio: (await localforage.getItem("audio")) ?? true,
             background:
                 (await localforage.getItem<string>("background")) ?? null,
