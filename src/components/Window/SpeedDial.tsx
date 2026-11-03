@@ -19,7 +19,8 @@ const SpeedDialWindow: React.FC = () => {
             if (
                 activeWindows.includes("search") ||
                 activeWindows.includes("notepad") ||
-                activeWindows.includes("settings")
+                activeWindows.includes("settings") ||
+                activeWindows.includes("calculator")
             )
                 return;
             openWindow("search");

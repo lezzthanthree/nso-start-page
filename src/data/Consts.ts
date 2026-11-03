@@ -5,6 +5,7 @@ export const windowNames = {
     settings: "Settings",
     developer: "Developer Mode",
     credits: "Credits",
+    calculator: "Calculator",
 };
 
 export const noteKey = "notes";

@@ -7,6 +7,7 @@ import NotepadWindow from "../Window/Notepad";
 import SettingsWindow from "../Window/Settings";
 import DeveloperWindow from "../Window/Developer";
 import CreditsWindow from "../Window/Credits";
+import CalculatorWindow from "../Window/Calculator";
 
 const Desktop: React.FC = () => {
     const { activeWindows, openWindow } = useWindowState();
@@ -38,6 +39,13 @@ const Desktop: React.FC = () => {
                             openWindow("notepad");
                         }}
                     />
+                    <IconImage
+                        image="img/icons/clock.png"
+                        name="Calculator"
+                        action={() => {
+                            openWindow("calculator");
+                        }}
+                    />
                 </div>
             </div>
 
@@ -48,6 +56,7 @@ const Desktop: React.FC = () => {
                 {activeWindows.includes("settings") && <SettingsWindow />}
                 {activeWindows.includes("credits") && <CreditsWindow />}
                 {activeWindows.includes("developer") && <DeveloperWindow />}
+                {activeWindows.includes("calculator") && <CalculatorWindow />}
             </div>
 
         </div>
