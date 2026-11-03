@@ -10,10 +10,17 @@ import { useGeneralSettingsState } from "./hooks/useGeneralSettings";
 import { useSpeedDialState } from "./hooks/useSpeedDial";
 import { useAudioManager } from "./hooks/useAudioManager";
 import { defaultBackground } from "./data/Consts";
+import BackgroundImage from "./components/UI/BackgroundImage";
 
 function App() {
     const { initializeExperimental } = useExperimentalState();
-    const { initializeSettings, audio, background } = useGeneralSettingsState();
+    const {
+        initializeSettings,
+        audio,
+        background,
+        pixelateBackground,
+        backgroundPixelSize,
+    } = useGeneralSettingsState();
     const { initializeSpeedDial } = useSpeedDialState();
     const { playSound } = useAudioManager();
 
@@ -34,11 +41,12 @@ function App() {
 
     return (
         <div
-            className={`w-screen h-screen flex flex-col items-center justify-center relative overflow-hidden ${background ? "bg-cover bg-center" : ""}`}
-            style={{
-                backgroundImage: `url('${background ?? defaultBackground}')`,
-            }}
+            className="isolate w-screen h-screen flex flex-col items-center justify-center relative overflow-hidden"
         >
+            <BackgroundImage
+                src={background ?? defaultBackground}
+                pixelSize={pixelateBackground ? backgroundPixelSize : 1}
+            />
             <DeveloperModeBar />
             <MobileViewNotification />
             <Desktop />

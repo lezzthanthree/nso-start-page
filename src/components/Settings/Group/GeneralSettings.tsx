@@ -4,6 +4,7 @@ import SettingsGroupSection from "../SettingsGroupSection";
 import Checkbox from "../../UI/Checkbox";
 import { useGeneralSettingsState } from "../../../hooks/useGeneralSettings";
 import Button from "../../UI/Button";
+import BackgroundImage from "../../UI/BackgroundImage";
 import { defaultBackground } from "../../../data/Consts";
 
 const GeneralSettings: React.FC = () => {
@@ -12,6 +13,8 @@ const GeneralSettings: React.FC = () => {
         hideSearchTip,
         audio,
         background,
+        pixelateBackground,
+        backgroundPixelSize,
         searchEngine,
         changeSettings,
         changeBackground,
@@ -80,20 +83,23 @@ const GeneralSettings: React.FC = () => {
             </SettingsGroupSection>
             <SettingsGroupSection
                 header="Background"
-                description="Choose a desktop background image."
+                description="Choose and customize a desktop background image."
             >
                 <div className="flex flex-col gap-3">
                     <div
+                        role="img"
                         aria-label={
                             background
                                 ? "Custom background preview"
                                 : "Default background preview"
                         }
-                        className="h-28 w-full max-w-sm border-2 border-nso-purple bg-center bg-cover"
-                        style={{
-                            backgroundImage: `url('${background ?? defaultBackground}')`,
-                        }}
-                    />
+                        className="isolate relative h-28 w-full max-w-sm overflow-hidden border-2 border-nso-purple"
+                    >
+                        <BackgroundImage
+                            src={background ?? defaultBackground}
+                            pixelSize={pixelateBackground ? backgroundPixelSize : 1}
+                        />
+                    </div>
                     <input
                         ref={fileInput}
                         type="file"
@@ -121,6 +127,41 @@ const GeneralSettings: React.FC = () => {
                             {backgroundError}
                         </p>
                     )}
+                    <Checkbox
+                        id="pixelateBackground"
+                        label="Pixelate background"
+                        state={pixelateBackground}
+                        onClick={() => {
+                            void changeSettings(
+                                "pixelateBackground",
+                                !pixelateBackground,
+                            );
+                        }}
+                    />
+                    <div className="flex max-w-sm flex-col gap-1">
+                        <label
+                            htmlFor="backgroundPixelSize"
+                            className="text-xl"
+                        >
+                            Pixelation strength: {backgroundPixelSize} px
+                        </label>
+                        <input
+                            id="backgroundPixelSize"
+                            type="range"
+                            min="2"
+                            max="32"
+                            step="1"
+                            value={backgroundPixelSize}
+                            disabled={!pixelateBackground}
+                            onChange={(event) => {
+                                void changeSettings(
+                                    "backgroundPixelSize",
+                                    Number(event.target.value),
+                                );
+                            }}
+                            className="nso-range w-full disabled:opacity-50"
+                        />
+                    </div>
                 </div>
             </SettingsGroupSection>
             <SettingsGroupSection header="Toggles" description="">

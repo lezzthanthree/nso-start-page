@@ -14,9 +14,11 @@ interface IGeneralSettingState {
     hideSearchTip: boolean;
     audio: boolean;
     background: string | null;
+    pixelateBackground: boolean;
+    backgroundPixelSize: number;
     searchEngine: SearchEngine;
     initializeSettings: () => Promise<void>;
-    changeSettings: (type: string, state: boolean) => Promise<void>;
+    changeSettings: (type: string, state: boolean | number) => Promise<void>;
     changeBackground: (background: string | null) => Promise<void>;
     changeSearchEngine: (searchEngine: SearchEngine) => Promise<void>;
 }
@@ -26,6 +28,8 @@ export const useGeneralSettingsState = create<IGeneralSettingState>((set) => ({
     hideSearchTip: false,
     audio: true,
     background: null,
+    pixelateBackground: false,
+    backgroundPixelSize: 8,
     searchEngine: "google",
     initializeSettings: async () => {
         set({
@@ -35,6 +39,12 @@ export const useGeneralSettingsState = create<IGeneralSettingState>((set) => ({
             audio: (await localforage.getItem("audio")) ?? true,
             background:
                 (await localforage.getItem<string>("background")) ?? null,
+            pixelateBackground:
+                (await localforage.getItem<boolean>("pixelateBackground")) ??
+                false,
+            backgroundPixelSize:
+                (await localforage.getItem<number>("backgroundPixelSize")) ??
+                8,
             searchEngine:
                 (await localforage.getItem<SearchEngine>("searchEngine")) ??
                 "google",
