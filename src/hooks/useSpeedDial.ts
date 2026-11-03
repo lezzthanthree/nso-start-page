@@ -26,6 +26,7 @@ interface ISpeedDialState {
         value: string,
     ) => Promise<void>;
     deleteSpeedDial: (id: number) => Promise<void>;
+    reorderSpeedDial: (id: number, direction: "up" | "down") => Promise<void>;
     editGreetingSettings: (
         message: string,
         type: "header" | "description",
@@ -169,6 +170,25 @@ export const useSpeedDialState = create<ISpeedDialState>((set, get) => ({
             set({ speedDial: updated });
         } catch (error) {
             console.error("Failed to delete speedDial:", error);
+        }
+    },
+    reorderSpeedDial: async (id, direction) => {
+        const current = get().speedDial;
+        const index = current.findIndex((link) => link.id === id);
+        const nextIndex = index + (direction === "up" ? -1 : 1);
+        if (index < 0 || nextIndex < 0 || nextIndex >= current.length) return;
+
+        const updated = [...current];
+        [updated[index], updated[nextIndex]] = [
+            updated[nextIndex],
+            updated[index],
+        ];
+        set({ speedDial: updated });
+
+        try {
+            await localforage.setItem(speedDialKey, updated);
+        } catch (error) {
+            console.error("Failed to reorder speedDial:", error);
         }
     },
     editGreetingSettings: async (

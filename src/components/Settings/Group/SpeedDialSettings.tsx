@@ -12,6 +12,7 @@ const SpeedDialSettings: React.FC = () => {
         initializeSpeedDial,
         addSpeedDial,
         deleteSpeedDial,
+        reorderSpeedDial,
         editGreetingSettings,
         editGapSettings,
         settings,
@@ -66,18 +67,19 @@ const SpeedDialSettings: React.FC = () => {
                         .
                     </p>
                     {speedDial.length > 0 && (
-                        <table className="w-full table-fixed   text-xl">
+                        <table className="w-full min-w-3xl table-fixed text-xl">
                             <thead>
                                 <tr>
                                     <th>Name</th>
                                     <th>URL</th>
                                     <th>Icon</th>
                                     <th>Color</th>
+                                    <th className="w-20 text-center">Order</th>
                                     <th className="w-16 pb-12" />
                                 </tr>
                             </thead>
                             <tbody>
-                                {speedDial.map((link) => (
+                                {speedDial.map((link, index) => (
                                     <tr key={link.id}>
                                         <td className="text-center">
                                             <SpeedDialInputBox
@@ -106,6 +108,43 @@ const SpeedDialSettings: React.FC = () => {
                                                 type="color"
                                                 value={link.color}
                                             />
+                                        </td>
+                                        <td className="w-20">
+                                            <div className="flex justify-center gap-1">
+                                                <button
+                                                    type="button"
+                                                    aria-label={`Move ${link.name} up`}
+                                                    title="Move up"
+                                                    disabled={index === 0}
+                                                    onClick={() => {
+                                                        void reorderSpeedDial(
+                                                            link.id,
+                                                            "up",
+                                                        );
+                                                    }}
+                                                    className="h-9 w-9 border-2 border-t-white border-l-white border-b-nso-purple border-r-nso-purple bg-nso-white disabled:opacity-40 disabled:cursor-not-allowed active:border-b-white active:border-r-white active:border-t-nso-purple active:border-l-nso-purple"
+                                                >
+                                                    ↑
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    aria-label={`Move ${link.name} down`}
+                                                    title="Move down"
+                                                    disabled={
+                                                        index ===
+                                                        speedDial.length - 1
+                                                    }
+                                                    onClick={() => {
+                                                        void reorderSpeedDial(
+                                                            link.id,
+                                                            "down",
+                                                        );
+                                                    }}
+                                                    className="h-9 w-9 border-2 border-t-white border-l-white border-b-nso-purple border-r-nso-purple bg-nso-white disabled:opacity-40 disabled:cursor-not-allowed active:border-b-white active:border-r-white active:border-t-nso-purple active:border-l-nso-purple"
+                                                >
+                                                    ↓
+                                                </button>
+                                            </div>
                                         </td>
                                         <td className="w-16 flex justify-center items-center">
                                             <Button
