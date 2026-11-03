@@ -155,7 +155,13 @@ const CalculatorWindow: React.FC = () => {
     ];
 
     return (
-        <Window title="Calculator" id="calculator">
+        <Window
+            title="Calculator"
+            id="calculator"
+            startingPosition="topLeft"
+            x={150}
+            y={50}
+        >
             <div className="w-72 p-3 flex flex-col gap-3 bg-nso-light-pink">
                 <div className="border-2 border-nso-purple bg-nso-white p-3 text-right overflow-hidden">
                     <p className="text-xs text-nso-purple/70 h-4">
