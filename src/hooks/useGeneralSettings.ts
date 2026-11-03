@@ -13,9 +13,11 @@ interface IGeneralSettingState {
     hour24: boolean;
     hideSearchTip: boolean;
     audio: boolean;
+    background: string | null;
     searchEngine: SearchEngine;
     initializeSettings: () => Promise<void>;
     changeSettings: (type: string, state: boolean) => Promise<void>;
+    changeBackground: (background: string | null) => Promise<void>;
     changeSearchEngine: (searchEngine: SearchEngine) => Promise<void>;
 }
 
@@ -23,6 +25,7 @@ export const useGeneralSettingsState = create<IGeneralSettingState>((set) => ({
     hour24: false,
     hideSearchTip: false,
     audio: true,
+    background: null,
     searchEngine: "google",
     initializeSettings: async () => {
         set({
@@ -30,6 +33,8 @@ export const useGeneralSettingsState = create<IGeneralSettingState>((set) => ({
             hideSearchTip:
                 (await localforage.getItem("hideSearchTip")) ?? false,
             audio: (await localforage.getItem("audio")) ?? true,
+            background:
+                (await localforage.getItem<string>("background")) ?? null,
             searchEngine:
                 (await localforage.getItem<SearchEngine>("searchEngine")) ??
                 "google",
@@ -40,6 +45,14 @@ export const useGeneralSettingsState = create<IGeneralSettingState>((set) => ({
         set({
             [type]: state,
         });
+    },
+    changeBackground: async (background) => {
+        if (background === null) {
+            await localforage.removeItem("background");
+        } else {
+            await localforage.setItem("background", background);
+        }
+        set({ background });
     },
     changeSearchEngine: async (searchEngine) => {
         await localforage.setItem("searchEngine", searchEngine);
