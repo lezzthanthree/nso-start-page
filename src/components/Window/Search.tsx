@@ -6,10 +6,28 @@ import Button from "../UI/Button";
 import { useSearchState } from "../../hooks/useSearch";
 import SearchHistoryList from "../Search/SearchHistoryList";
 import { useAudioManager } from "../../hooks/useAudioManager";
+import { useGeneralSettingsState } from "../../hooks/useGeneralSettings";
+import type { SearchEngine } from "../../hooks/useGeneralSettings";
+
+const searchUrls: Record<SearchEngine, (query: string) => string> = {
+    google: (query) =>
+        `https://www.google.com/search?q=${encodeURIComponent(query)}`,
+    duckduckgo: (query) =>
+        `https://duckduckgo.com/?q=${encodeURIComponent(query)}`,
+    bing: (query) =>
+        `https://www.bing.com/search?q=${encodeURIComponent(query)}`,
+    yahoo: (query) =>
+        `https://search.yahoo.com/search?p=${encodeURIComponent(query)}`,
+    ecosia: (query) =>
+        `https://www.ecosia.org/search?q=${encodeURIComponent(query)}`,
+    brave: (query) =>
+        `https://search.brave.com/search?q=${encodeURIComponent(query)}`,
+};
 
 const SearchWindow: React.FC = () => {
     const { closeWindow } = useWindowState();
     const { playSound } = useAudioManager();
+    const searchEngine = useGeneralSettingsState((state) => state.searchEngine);
 
     const {
         search,
@@ -41,11 +59,7 @@ const SearchWindow: React.FC = () => {
             window.open(url, "_self");
             return;
         }
-        if (toSearch.length == 0) {
-            window.open("https://www.google.com/search?q=Ame-chan", "_self");
-            return;
-        }
-        window.open("https://www.google.com/search?q=" + toSearch, "_self");
+        window.open(searchUrls[searchEngine](toSearch || "Ame-chan"), "_self");
     };
 
     useEffect(() => {
@@ -102,7 +116,7 @@ const SearchWindow: React.FC = () => {
         return () => {
             document.removeEventListener("keydown", event);
         };
-    }, [search, temporary]);
+    }, [search, temporary, searchEngine]);
 
     useEffect(() => {
         if (inputBox.current) {
