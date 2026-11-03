@@ -2,10 +2,17 @@ import React, { useRef, useState } from "react";
 import SettingsGroup from "../SettingsGroup";
 import SettingsGroupSection from "../SettingsGroupSection";
 import Checkbox from "../../UI/Checkbox";
-import { useGeneralSettingsState } from "../../../hooks/useGeneralSettings";
+import {
+    useGeneralSettingsState,
+    type BackgroundColorDepth,
+} from "../../../hooks/useGeneralSettings";
 import Button from "../../UI/Button";
 import BackgroundImage from "../../UI/BackgroundImage";
 import { defaultBackground } from "../../../data/Consts";
+import {
+    eightBitPalette,
+    fourBitPalette,
+} from "../../../data/BackgroundPalettes";
 
 const GeneralSettings: React.FC = () => {
     const {
@@ -13,6 +20,7 @@ const GeneralSettings: React.FC = () => {
         hideSearchTip,
         audio,
         background,
+        backgroundColorDepth,
         pixelateBackground,
         backgroundPixelSize,
         searchEngine,
@@ -97,7 +105,10 @@ const GeneralSettings: React.FC = () => {
                     >
                         <BackgroundImage
                             src={background ?? defaultBackground}
-                            pixelSize={pixelateBackground ? backgroundPixelSize : 1}
+                            colorDepth={backgroundColorDepth}
+                            pixelSize={
+                                pixelateBackground ? backgroundPixelSize : 1
+                            }
                         />
                     </div>
                     <input
@@ -127,6 +138,61 @@ const GeneralSettings: React.FC = () => {
                             {backgroundError}
                         </p>
                     )}
+                    <div className="flex max-w-sm flex-col gap-1">
+                        <label htmlFor="backgroundColorDepth" className="text-xl">
+                            Background color depth
+                        </label>
+                        <select
+                            id="backgroundColorDepth"
+                            value={backgroundColorDepth}
+                            onChange={(event) => {
+                                void changeSettings(
+                                    "backgroundColorDepth",
+                                    event.target.value as BackgroundColorDepth,
+                                );
+                            }}
+                            className="border-2 text-xl border-b-white border-r-white border-t-nso-purple border-l-nso-purple bg-nso-light-pink p-2 w-full min-w-0"
+                        >
+                            <option value="default">Default</option>
+                            <option value="4-bit">4-bit color (16 colors)</option>
+                            <option value="8-bit">8-bit color (256 colors)</option>
+                        </select>
+                        {backgroundColorDepth === "default" ? (
+                            <p className="text-sm">
+                                Original image colors vary by image.
+                            </p>
+                        ) : (
+                            <div
+                                role="img"
+                                aria-label={`${backgroundColorDepth === "4-bit" ? "16-color" : "256-color"} palette`}
+                                className="grid w-full max-w-sm gap-1 border-2 border-nso-purple bg-nso-white p-2"
+                                style={{
+                                    gridTemplateColumns: `repeat(${backgroundColorDepth === "4-bit" ? 8 : 16}, minmax(0, 1fr))`,
+                                }}
+                            >
+                                {(backgroundColorDepth === "4-bit"
+                                    ? fourBitPalette
+                                    : eightBitPalette
+                                ).map(([red, green, blue], index) => (
+                                    <span
+                                        key={`${red}-${green}-${blue}-${index}`}
+                                        aria-hidden="true"
+                                        title={`#${[red, green, blue]
+                                            .map((channel) =>
+                                                channel
+                                                    .toString(16)
+                                                    .padStart(2, "0"),
+                                            )
+                                            .join("")}`}
+                                        className="aspect-square min-w-0 border border-black/20"
+                                        style={{
+                                            backgroundColor: `rgb(${red} ${green} ${blue})`,
+                                        }}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                    </div>
                     <Checkbox
                         id="pixelateBackground"
                         label="Pixelate background"

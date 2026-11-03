@@ -9,16 +9,22 @@ export type SearchEngine =
     | "ecosia"
     | "brave";
 
+export type BackgroundColorDepth = "default" | "4-bit" | "8-bit";
+
 interface IGeneralSettingState {
     hour24: boolean;
     hideSearchTip: boolean;
     audio: boolean;
     background: string | null;
+    backgroundColorDepth: BackgroundColorDepth;
     pixelateBackground: boolean;
     backgroundPixelSize: number;
     searchEngine: SearchEngine;
     initializeSettings: () => Promise<void>;
-    changeSettings: (type: string, state: boolean | number) => Promise<void>;
+    changeSettings: (
+        type: string,
+        state: boolean | number | BackgroundColorDepth,
+    ) => Promise<void>;
     changeBackground: (background: string | null) => Promise<void>;
     changeSearchEngine: (searchEngine: SearchEngine) => Promise<void>;
 }
@@ -28,10 +34,14 @@ export const useGeneralSettingsState = create<IGeneralSettingState>((set) => ({
     hideSearchTip: false,
     audio: true,
     background: null,
+    backgroundColorDepth: "default",
     pixelateBackground: false,
     backgroundPixelSize: 8,
     searchEngine: "google",
     initializeSettings: async () => {
+        const storedColorDepth = await localforage.getItem<string>(
+            "backgroundColorDepth",
+        );
         set({
             hour24: (await localforage.getItem("hour24")) ?? false,
             hideSearchTip:
@@ -39,6 +49,11 @@ export const useGeneralSettingsState = create<IGeneralSettingState>((set) => ({
             audio: (await localforage.getItem("audio")) ?? true,
             background:
                 (await localforage.getItem<string>("background")) ?? null,
+            backgroundColorDepth:
+                storedColorDepth === "4-bit" ||
+                storedColorDepth === "8-bit"
+                    ? storedColorDepth
+                    : "default",
             pixelateBackground:
                 (await localforage.getItem<boolean>("pixelateBackground")) ??
                 false,

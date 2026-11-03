@@ -1,14 +1,18 @@
 import React, { useEffect, useRef } from "react";
+import type { BackgroundColorDepth } from "../../hooks/useGeneralSettings";
+import { fourBitPalette } from "../../data/BackgroundPalettes";
 
 interface BackgroundImageProps {
     src: string;
     pixelSize: number;
+    colorDepth?: BackgroundColorDepth;
     className?: string;
 }
 
 const BackgroundImage: React.FC<BackgroundImageProps> = ({
     src,
     pixelSize,
+    colorDepth = "default",
     className = "",
 }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -48,6 +52,54 @@ const BackgroundImage: React.FC<BackgroundImageProps> = ({
                 drawHeight / blockSize,
             );
 
+            if (colorDepth !== "default") {
+                const imageData = smallContext.getImageData(
+                    0,
+                    0,
+                    smallCanvas.width,
+                    smallCanvas.height,
+                );
+
+                for (let index = 0; index < imageData.data.length; index += 4) {
+                    if (colorDepth === "4-bit") {
+                        let nearestColor = fourBitPalette[0];
+                        let nearestDistance = Number.POSITIVE_INFINITY;
+
+                        for (const paletteColor of fourBitPalette) {
+                            const redDifference =
+                                imageData.data[index] - paletteColor[0];
+                            const greenDifference =
+                                imageData.data[index + 1] - paletteColor[1];
+                            const blueDifference =
+                                imageData.data[index + 2] - paletteColor[2];
+                            const distance =
+                                redDifference * redDifference +
+                                greenDifference * greenDifference +
+                                blueDifference * blueDifference;
+
+                            if (distance < nearestDistance) {
+                                nearestDistance = distance;
+                                nearestColor = paletteColor;
+                            }
+                        }
+
+                        imageData.data[index] = nearestColor[0];
+                        imageData.data[index + 1] = nearestColor[1];
+                        imageData.data[index + 2] = nearestColor[2];
+                    } else {
+                        const channelBits = [3, 3, 2];
+                        for (let channel = 0; channel < 3; channel += 1) {
+                            const levels = 2 ** channelBits[channel] - 1;
+                            imageData.data[index + channel] = Math.round(
+                                (imageData.data[index + channel] / 255) * levels,
+                            ) * (255 / levels);
+                        }
+                    }
+                }
+
+                smallContext.putImageData(imageData, 0, 0);
+            }
+
             canvas.width = width;
             canvas.height = height;
             context.imageSmoothingEnabled = false;
@@ -65,7 +117,7 @@ const BackgroundImage: React.FC<BackgroundImageProps> = ({
             isActive = false;
             observer.disconnect();
         };
-    }, [pixelSize, src]);
+    }, [colorDepth, pixelSize, src]);
 
     return (
         <canvas

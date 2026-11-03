@@ -18,6 +18,7 @@ function App() {
         initializeSettings,
         audio,
         background,
+        backgroundColorDepth,
         pixelateBackground,
         backgroundPixelSize,
     } = useGeneralSettingsState();
@@ -45,6 +46,7 @@ function App() {
         >
             <BackgroundImage
                 src={background ?? defaultBackground}
+                colorDepth={backgroundColorDepth}
                 pixelSize={pixelateBackground ? backgroundPixelSize : 1}
             />
             <DeveloperModeBar />
